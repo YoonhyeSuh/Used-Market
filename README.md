@@ -1,4 +1,8 @@
 # Used-Market
 중고거래 앱 만들기
-언어 : 코틀린
-에디터 : 안드로이드 스튜디오
+<br>
+	<div align="center">
+	<img src="https://img.shields.io/badge/Android-3DDC84?style=flat&logo=Android&logoColor=white" />
+	<img src="https://img.shields.io/badge/Android Studio-3DDC84?style=flat&logo=Android Studio&logoColor=white" />
+	<img src="https://img.shields.io/badge/Kotlin-7F52FF?style=flat&logo=Kotlin&logoColor=white" />
+</div>
