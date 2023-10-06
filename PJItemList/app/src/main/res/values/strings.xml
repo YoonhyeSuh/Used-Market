@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">PJ ItemList</string>
+    <string name="home">홈</string>
+    <string name="page1">내 근처</string>
+    <string name="page2">채팅</string>
+    <string name="page3">마이페이지</string>
+    <string name="search">검색</string>
+    <string name="notification">알림</string>
+    <string name="menu">전체 서비스</string>
+</resources>
