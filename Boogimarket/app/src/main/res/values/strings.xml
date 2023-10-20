@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Boogimarket</string>
+    <string name="menu_title_home">홈</string>
+    <string name="menu_title_chating">채팅</string>
+    <string name="menu_title_myInfo">내정보</string>
+
 </resources>
