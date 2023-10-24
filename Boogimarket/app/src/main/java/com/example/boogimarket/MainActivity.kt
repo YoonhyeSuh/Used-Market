@@ -44,4 +44,5 @@ class MainActivity : AppCompatActivity() {
 
         //viewModel.updateItems(isSold, sortPrice)
     }
+
 }
