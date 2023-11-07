@@ -111,7 +111,6 @@
         app:layout_constraintBottom_toTopOf="@+id/edt_message"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date"
-        tools:listitem="@layout/chat_design_mine" />
+        app:layout_constraintTop_toBottomOf="@+id/date" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
