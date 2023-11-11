@@ -2,11 +2,15 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
+    id("com.google.firebase.crashlytics")
 }
 
 android {
     namespace 'com.example.boogimarket'
     compileSdk 34
+    buildFeatures {
+        viewBinding = true
+    }
 
     defaultConfig {
         applicationId "com.example.boogimarket"
@@ -45,6 +49,11 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.4.0"))
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-auth-ktx:22.2.0")
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
+    implementation("com.google.firebase:firebase-storage-ktx")
+    implementation("com.google.firebase:firebase-config-ktx")
+    implementation("com.google.firebase:firebase-database-ktx")
+
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
