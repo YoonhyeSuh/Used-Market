@@ -51,8 +51,8 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx:22.2.0")
     implementation("com.google.firebase:firebase-crashlytics-ktx")
     implementation("com.google.firebase:firebase-storage-ktx")
-    implementation("com.google.firebase:firebase-config-ktx")
     implementation("com.google.firebase:firebase-database-ktx")
+    implementation("com.google.firebase:firebase-config-ktx")
 
 
     testImplementation 'junit:junit:4.13.2'
