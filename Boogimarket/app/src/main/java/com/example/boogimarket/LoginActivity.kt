@@ -28,10 +28,10 @@ class LoginActivity : AppCompatActivity() {
 
         //로그인 버튼 이벤트
         binding.loginBtn.setOnClickListener {
-            val emailId = binding.emailId.text.toString()
+            val email = binding.email.text.toString()
             val password = binding.password.text.toString()
 
-            logIn(emailId, password)
+            logIn(email, password)
 
         }
 
@@ -45,8 +45,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     //로그인
-    private fun logIn(emailId: String, password: String) {
-        mAuth.signInWithEmailAndPassword(emailId, password)
+    private fun logIn(email: String, password: String) {
+        mAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     //성공시 실행

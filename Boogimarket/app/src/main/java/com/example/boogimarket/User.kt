@@ -1,8 +1,11 @@
 package com.example.boogimarket
 
+//사용자 정보를 담을 클래스
 data class User (
-    val name: String,
-    val email: String,
-    val userId: String,
-    val password: String
-)
+    var name: String,
+    var birth: String,
+    var email: String,
+    var userId: String //인증 데이터에 있는 uid
+){
+    constructor(): this("","","","")
+}
