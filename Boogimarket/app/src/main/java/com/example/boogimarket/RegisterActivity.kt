@@ -44,6 +44,11 @@ class RegisterActivity : AppCompatActivity() {
             //이메일과 비밀번호 인자로 넘김
             signUp(email, password, name, birth)
         }
+
+        //액션바 이름 설정
+        supportActionBar?.title = "RegisterActivity"
+        //뒤로 가기 버튼
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     //회원가입
