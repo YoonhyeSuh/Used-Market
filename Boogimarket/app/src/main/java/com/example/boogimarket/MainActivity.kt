@@ -7,6 +7,8 @@ import android.view.MenuItem
 import android.widget.CheckBox
 import android.widget.RadioGroup
 import androidx.activity.viewModels
+import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MyViewModel>()
@@ -16,7 +18,22 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        setContentView(R.layout.activity_list)
+
+        val homeFragment = Home()
+        val chatFragment = Chat()
+        val myPageFragment = MyPage()
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.menu_bottom_navigation)
+        replaceFragment(homeFragment)
+        bottomNavigationView.setOnItemSelectedListener {
+            when(it.itemId) {
+                R.id.home -> replaceFragment(homeFragment)
+                R.id.chat -> replaceFragment(chatFragment)
+                R.id.myInfo -> replaceFragment(myPageFragment)
+            }
+            true
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -44,5 +61,11 @@ class MainActivity : AppCompatActivity() {
 
         //viewModel.updateItems(isSold, sortPrice)
     }
-
+    private fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .apply {
+                replace(R.id.meun_frame_layout, fragment)
+                commit()
+            }
+    }
 }
