@@ -18,12 +18,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-      
+        setContentView(R.layout.activity_list)
+
         val homeFragment = Home()
         val chatFragment = Chat()
         val myPageFragment = MyPage()
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.menu_bottom_navigation)
+
         replaceFragment(homeFragment)
+
         bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId) {
                 R.id.home -> replaceFragment(homeFragment)
