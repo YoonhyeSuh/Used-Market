@@ -20,18 +20,23 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
 
-        val homeFragment = Home()
-        val chatFragment = Chat()
-        val myPageFragment = MyPage()
+        // 프래그먼트 인스턴스 생성
+        val homeFragment = HomeFragment()
+        val chatFragment = ChatFragment()
+        val myPageFragment = MyPageFragment()
+
+        // Bottom Navigation 설정
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.menu_bottom_navigation)
 
+        // 초기 프래그먼트를 HomeFragment로 설정
         replaceFragment(homeFragment)
 
+        // Bottom Navigation 아이템 선택 처리
         bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId) {
-                R.id.home -> replaceFragment(homeFragment)
-                R.id.chat -> replaceFragment(chatFragment)
-                R.id.myInfo -> replaceFragment(myPageFragment)
+                R.id.home -> replaceFragment(homeFragment) // HomeFragment로 전환
+                R.id.chat -> replaceFragment(chatFragment) // ChatFragment로 전환
+                R.id.myInfo -> replaceFragment(myPageFragment) // MyPageFragment로 전환
             }
             true
         }
@@ -62,6 +67,8 @@ class MainActivity : AppCompatActivity() {
 
         //viewModel.updateItems(isSold, sortPrice)
     }
+
+    // 현재 프래그먼트를 지정된 프래그먼트로 교체
     private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .apply {

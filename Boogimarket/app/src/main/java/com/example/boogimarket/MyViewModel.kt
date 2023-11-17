@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 
 // icon : 상품 이미지, product : 상품, location : 거래 장소, price : 상품 가격, isSold : 상품 판매 상태 여부(isSold = true 시 sold out)
 // 판매자 추가 필요
-data class Item(val icon: String, val product: String, val location: String, val price: String, val isSold: Boolean = false)
+data class Item(val icon: String, val product: String, val location: String, val price: String, val sold: Boolean = false)
 
 class MyViewModel : ViewModel() {
     val itemsListData = MutableLiveData<ArrayList<Item>>()
@@ -20,7 +20,7 @@ class MyViewModel : ViewModel() {
 
         // 판매된 상품 필터 적용
         isSold?.let { state ->
-            updatedItems = updatedItems.filter { it.isSold == state } // isSold 값에 따라 filtering
+            updatedItems = updatedItems.filter { it.sold == state } // isSold 값에 따라 filtering
         }
 
         // 가격순 정렬
