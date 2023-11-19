@@ -23,6 +23,7 @@ class MyPageActivity : AppCompatActivity() {
         //하..^^
 
         //메뉴바에서 navigation 연결을 아직 안해 확인 불가
+        //1119 확인해본 결과 로그아웃 버튼 누르면 앱이 종료됨
         //아이콘 버튼 클릭시 로그아웃
         binding.logoutBtn.setOnClickListener {
             Firebase.auth.signOut()
@@ -31,6 +32,7 @@ class MyPageActivity : AppCompatActivity() {
             finish()
         }
 
+        //1119 확인해본 결과 액션바 안나타남
         //액션바 이름 설정
         supportActionBar?.title = "MyPageActivity"
         //뒤로 가기 버튼
