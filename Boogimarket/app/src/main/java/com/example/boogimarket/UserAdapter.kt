@@ -35,7 +35,7 @@ RecyclerView.Adapter<UserAdapter.userViewHolder>(){
 
             val intent = Intent(context, ChatActivity::class.java)
 
-            //넘길 데이터
+            //넘길 데이터 //추후 수정 이미지와 아이템 이름을 넘겨줘야함
             intent.putExtra("name", currentUser.name)
             intent.putExtra("uId", currentUser.userId)
 

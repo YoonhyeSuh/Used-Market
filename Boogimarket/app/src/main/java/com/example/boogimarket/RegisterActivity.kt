@@ -28,7 +28,7 @@ class RegisterActivity : AppCompatActivity() {
         mAuth = Firebase.auth
 
         //db 초기화
-        mDbRef = Firebase.database.reference
+        mDbRef = Firebase.database.getReference("user")
 
         //회원가입 버튼 회원가입 기능 구현
         binding.signUpBtn.setOnClickListener {
@@ -63,8 +63,15 @@ class RegisterActivity : AppCompatActivity() {
                     val intent: Intent = Intent(this@RegisterActivity, LoginActivity::class.java)
                     startActivity(intent)
 
+                    val itemMap = hashMapOf( // 여러 자식(키,값)을 한번에 쓰기
+                        "name" to name,
+                        "birth" to birth,
+                        "email" to email
+                    )
                     //사용자 정보 저장
-                    addUserToDatabase(name, birth, email, mAuth.currentUser?.uid!!)
+                    addUserToDatabase(itemMap, mAuth.currentUser?.uid!!)
+
+
 
                 } else {
                     //실패시 실행
@@ -73,7 +80,7 @@ class RegisterActivity : AppCompatActivity() {
             }
     }
 
-    private fun addUserToDatabase(name: String, birth: String, email: String, userId: String ){
-        mDbRef.child("user").child(userId).setValue(User(name, birth, email, userId))
+    private fun addUserToDatabase(itemMap: HashMap<String, String>, userId: String ){
+        mDbRef.child(userId).setValue(itemMap)
     }
 }

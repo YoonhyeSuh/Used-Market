@@ -1,13 +1,11 @@
 package com.example.boogimarket
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.boogimarket.databinding.ActivityChatroomBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
-import com.google.firebase.ktx.Firebase
 
 class ChatActivity : AppCompatActivity() {
 
@@ -27,6 +25,7 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var messageList: ArrayList<Message>
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityChatroomBinding.inflate(layoutInflater)
@@ -40,7 +39,7 @@ class ChatActivity : AppCompatActivity() {
         binding.recyclerMessages.layoutManager = LinearLayoutManager(this)
         binding.recyclerMessages.adapter = messageAdapter
 
-        //넘어온 데이터 변수에 담기
+        //넘어온 데이터 변수에 담기// 이미지랑  저기에 추가
         receiverName = intent.getStringExtra("name").toString()
         receiverUid = intent.getStringExtra("uId").toString()
 
@@ -62,6 +61,7 @@ class ChatActivity : AppCompatActivity() {
         binding.btnSubmit.setOnClickListener {
 
             val message = binding.edtMessage.text.toString()
+
             val messageObject = Message(message,senderUid)
 
             //데이터 저장//chat 공간안에 보낸이 안에 message 안에 대화 내용 저장
