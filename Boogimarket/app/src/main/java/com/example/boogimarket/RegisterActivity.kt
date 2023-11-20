@@ -69,22 +69,11 @@ class RegisterActivity : AppCompatActivity() {
                         "email" to email
                     )
                     //사용자 정보 저장
-<<<<<<< Updated upstream
+
+                    //// addUserToDatabase(name, birth, email, mAuth.currentUser?.uid!!)
                     addUserToDatabase(itemMap, mAuth.currentUser?.uid!!)
 
 
-=======
-
-                    val itemMap = hashMapOf( // 여러 자식(키,값)을 한번에 쓰기
-                        "name" to name,
-                        "birth" to birth,
-                        "email" to email
-                    )
-                   // addUserToDatabase(name, birth, email, mAuth.currentUser?.uid!!)
-
-                    addUserToDatabase(itemMap, mAuth.currentUser?.uid!!)
-
->>>>>>> Stashed changes
 
                 } else {
                     //실패시 실행
