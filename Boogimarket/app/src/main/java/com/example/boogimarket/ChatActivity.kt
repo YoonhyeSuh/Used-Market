@@ -44,7 +44,7 @@ class ChatActivity : AppCompatActivity() {
         receiverUid = intent.getStringExtra("uId").toString()
 
         mAuth = FirebaseAuth.getInstance()
-        mDbRef = FirebaseDatabase.getInstance().reference
+        mDbRef = FirebaseDatabase.getInstance("https://boogimarket-000-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
 
 
         // 접속자 uid
@@ -57,6 +57,7 @@ class ChatActivity : AppCompatActivity() {
 
     //액션바에 상대방 이름 보여주기
        // supportActionBar?.title = receiverName
+        binding.txtTitle.setText(receiverName)
     //메세지 전송 버튼 이벤트 -> db 저장 후 화면에 보여짐
         binding.btnSubmit.setOnClickListener {
 
