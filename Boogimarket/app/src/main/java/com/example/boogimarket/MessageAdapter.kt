@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
 
 
 class MessageAdapter(private val context: Context, private val messageList:ArrayList<Message> ) :
@@ -67,7 +66,7 @@ class MessageAdapter(private val context: Context, private val messageList:Array
         }
 
         class ReceiveViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            val receiveMessage: TextView = itemView.findViewById(R.id.recycler_messages)
+            val receiveMessage: TextView = itemView.findViewById(R.id.recive_txt_message)
         }
 
     }

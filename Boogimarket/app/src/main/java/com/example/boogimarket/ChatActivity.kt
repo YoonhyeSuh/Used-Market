@@ -1,13 +1,11 @@
 package com.example.boogimarket
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.boogimarket.databinding.ActivityChatroomBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
-import com.google.firebase.ktx.Firebase
 
 class ChatActivity : AppCompatActivity() {
 
@@ -27,6 +25,7 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var messageList: ArrayList<Message>
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityChatroomBinding.inflate(layoutInflater)
@@ -40,12 +39,12 @@ class ChatActivity : AppCompatActivity() {
         binding.recyclerMessages.layoutManager = LinearLayoutManager(this)
         binding.recyclerMessages.adapter = messageAdapter
 
-        //넘어온 데이터 변수에 담기
+        //넘어온 데이터 변수에 담기// 이미지랑  저기에 추가
         receiverName = intent.getStringExtra("name").toString()
         receiverUid = intent.getStringExtra("uId").toString()
 
         mAuth = FirebaseAuth.getInstance()
-        mDbRef = FirebaseDatabase.getInstance().reference
+        mDbRef = FirebaseDatabase.getInstance("https://boogimarket-000-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
 
 
         // 접속자 uid
@@ -56,12 +55,14 @@ class ChatActivity : AppCompatActivity() {
         //받는이 방
         receiverRoom = senderUid + receiverUid
 
-    //액션바에 상대방 이름 보여주기
-       // supportActionBar?.title = receiverName
-    //메세지 전송 버튼 이벤트 -> db 저장 후 화면에 보여짐
+        //액션바에 상대방 이름 보여주기
+        // supportActionBar?.title = receiverName
+        binding.txtTitle.setText(receiverName)
+        //메세지 전송 버튼 이벤트 -> db 저장 후 화면에 보여짐
         binding.btnSubmit.setOnClickListener {
 
             val message = binding.edtMessage.text.toString()
+
             val messageObject = Message(message,senderUid)
 
             //데이터 저장//chat 공간안에 보낸이 안에 message 안에 대화 내용 저장

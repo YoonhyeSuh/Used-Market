@@ -8,13 +8,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class UserAdapter(private val context: Context,private val userList: ArrayList<User>):
+class UserAdapter(private val context: Context, private val userList: ArrayList<User>):
 RecyclerView.Adapter<UserAdapter.userViewHolder>(){
     //화면 설정
 
     //userlayout을 연결하는 기능을 구현
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): userViewHolder {
-        val view: View = LayoutInflater.from(context).inflate(R.layout.chatrlist_design, parent, false)
+        // 뷰 안에 챗 리스트 디자인 넣기
+        val view: View = LayoutInflater.from(context).inflate(R.layout.chatlist_design, parent, false)
 
         return userViewHolder(view)//uset_layout을 넣은 뷰를 뷰홀더에 넣었다.
     }
@@ -35,7 +36,7 @@ RecyclerView.Adapter<UserAdapter.userViewHolder>(){
 
             val intent = Intent(context, ChatActivity::class.java)
 
-            //넘길 데이터
+            //넘길 데이터 //추후 수정 이미지와 아이템 이름을 넘겨줘야함
             intent.putExtra("name", currentUser.name)
             intent.putExtra("uId", currentUser.userId)
 
@@ -43,7 +44,7 @@ RecyclerView.Adapter<UserAdapter.userViewHolder>(){
         }
     }
 
-    // 파라미터로 user_layout을 받았다
+    // 파라미터로 chatlist_design을 받았다
     class userViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         //user_layout을 받아서 텍스트 뷰에 객체를 만듬
         val nameText: TextView = itemView.findViewById(R.id.name_text)//따라서 user_layout의 nametext에 접근 가능
