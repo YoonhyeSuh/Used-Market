@@ -55,10 +55,10 @@ class ChatActivity : AppCompatActivity() {
         //받는이 방
         receiverRoom = senderUid + receiverUid
 
-    //액션바에 상대방 이름 보여주기
-       // supportActionBar?.title = receiverName
+        //액션바에 상대방 이름 보여주기
+        // supportActionBar?.title = receiverName
         binding.txtTitle.setText(receiverName)
-    //메세지 전송 버튼 이벤트 -> db 저장 후 화면에 보여짐
+        //메세지 전송 버튼 이벤트 -> db 저장 후 화면에 보여짐
         binding.btnSubmit.setOnClickListener {
 
             val message = binding.edtMessage.text.toString()
