@@ -65,9 +65,6 @@ class RegisterActivity : AppCompatActivity() {
                     )
                     //사용자 정보 저장
                     addUserToFirestore(user)
-
-
-
                 } else {
                     //실패시 실행
                     Toast.makeText(this, "회원가입 실패", Toast.LENGTH_SHORT).show()
