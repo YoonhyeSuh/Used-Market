@@ -6,14 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".MyPageActivity">
 
-    <ImageButton
+    <Button
         android:id="@+id/logout_btn"
-        android:layout_width="60sp"
-        android:layout_height="60sp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="350dp"
-        android:background="@color/white"
-        app:srcCompat="@drawable/ic_baseline_logout_24" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LOG OUT"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
+        android:layout_below="@id/mypage_email"/>
+
 
     <ImageView
             android:id="@+id/mypage_image"
