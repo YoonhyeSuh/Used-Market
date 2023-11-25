@@ -1,5 +1,6 @@
 package com.example.boogimarket
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -79,7 +80,38 @@ class HomeFragment : Fragment() {
         }
 
         inner class ViewHolder(private val binding: ItemLayoutBinding) :
-            RecyclerView.ViewHolder(binding.root) {
+            RecyclerView.ViewHolder(binding.root), View.OnClickListener {
+
+
+            init {
+                // Set click listener for the ViewHolder's view
+                binding.root.setOnClickListener(this)
+            }
+
+
+            override fun onClick(view: View) {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val clickedItem = post[position]
+
+                    // Create an Intent to start the DetailsActivity
+                    val intent = Intent(view.context, DetailsActivity::class.java)
+
+                    // Pass data to the DetailsActivity using intent extras
+                    intent.putExtra("item_title", clickedItem.title)
+                    intent.putExtra("item_location", clickedItem.location)
+                    intent.putExtra("item_price", clickedItem.price)
+                    intent.putExtra("item_explain",clickedItem.explain)
+                    intent.putExtra("item_sold",clickedItem.sold)
+                    intent.putExtra("item_userId",clickedItem.userId)
+                    // Add other data you want to pass
+
+                    // Start the DetailsActivity
+                    view.context.startActivity(intent)
+                }
+            }
+
+
 
             fun bind(item: ProductInformation) {
                 binding.listTitle.text = item.title

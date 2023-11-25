@@ -34,6 +34,11 @@
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
 <!--        </activity>-->
+        <activity
+            android:name=".DetailsActivity"
+            android:label="DetailsActivity">
+            <!-- Add any necessary intent filters or configurations here -->
+        </activity>
 
         <activity
             android:name=".MyPageActivity"
