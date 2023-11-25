@@ -10,6 +10,6 @@ data class ProductInformation (
     var price : String?=null,
     var location : String? =null,
     var explain : String?=null,
-    var sold : Boolean = false
+    var sold : Boolean = false,
 ) {
 }
