@@ -6,7 +6,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="627dp">
+        android:layout_height="0dp"
+        android:layout_weight="1"> <!-- ScrollView의 높이를 0dp로 설정하고, layout_weight를 사용하여 비율을 조정 -->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -17,17 +18,15 @@
             <!-- 이미지 업로드 -->
             <ImageView
                 android:id="@+id/imageViewProduct"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:scaleType="centerCrop" />
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center"
+
+                android:src="@drawable/baseline_photo_camera_24"
+                />
 
             <!-- 제목 입력 -->
-            <Button
-                android:id="@+id/buttonChangeImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="이미지 변경" />
 
             <EditText
                 android:id="@+id/editTextTitle"
@@ -60,15 +59,16 @@
                 android:hint="위치" />
 
 
+            <Button
+                android:id="@+id/buttonEditPost"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_margin="20dp"
+                android:text="게시물 수정" />
+
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/buttonEditPost"
-        android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:text="게시물 수정"
-        android:layout_margin="20dp"/>
 
 
 </LinearLayout>

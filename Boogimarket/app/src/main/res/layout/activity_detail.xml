@@ -8,7 +8,8 @@
 
     <ImageButton
         android:id="@+id/imageEdit"
-        android:layout_width="84dp"
+        android:layout_width="40dp"
+        android:layout_marginRight="10dp"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:background="@color/white"
@@ -61,11 +62,13 @@
             <!-- Chat Button -->
 
 
-            <Button
+            <ImageButton
                 android:id="@+id/buttonChat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="채팅" />
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:src="@drawable/ic_baseline_chat_24"
+                app:tint="@color/purple_700" />
 
 
         </LinearLayout>
