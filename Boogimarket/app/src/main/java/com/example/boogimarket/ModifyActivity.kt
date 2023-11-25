@@ -19,6 +19,8 @@ class ModifyActivity: AppCompatActivity(){
         val documentId = intent.getStringExtra("documentId")
         db = FirebaseFirestore.getInstance()
 
+        supportActionBar?.title = " 게시글 수정"
+
         binding = ActivityModifyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

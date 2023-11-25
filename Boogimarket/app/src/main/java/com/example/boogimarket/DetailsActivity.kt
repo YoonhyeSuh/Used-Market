@@ -38,10 +38,15 @@ class DetailsActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.title = " 상세정보"
+
+
         binding.textViewTitle.setText("상품명: "+title).toString()
         binding.textViewExplain.setText("설명: "+ explain).toString()
         binding.textViewPrice.setText("가격: "+price).toString()
         binding.textViewLocation.setText("거래 장소: " +location).toString()
+
+
         if (sold) {
             binding.textViewSoldStatus.text = " 팔림"
         } else {
