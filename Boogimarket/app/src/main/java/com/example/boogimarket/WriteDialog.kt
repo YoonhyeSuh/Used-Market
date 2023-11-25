@@ -29,16 +29,27 @@ class WriteDialog : BottomSheetDialogFragment() {
         firestore = FirebaseFirestore.getInstance()
 
         // 작성 완료 버튼 클릭 시 작성한 데이터를 Firestore에 저장
+        //jhr 후에 이미지 추가 예정
         binding.writeFinish.setOnClickListener {
             var postInfo = ProductInformation()
             postInfo.email = auth.currentUser?.email
             postInfo.userId = auth.uid.toString()
-            postInfo.imgUri = firestore?.collection("post")?.document()?.id
             postInfo.title = binding.writeTitle.text.toString()
             postInfo.price = binding.writePrice.text.toString()
             postInfo.location = binding.writeLocation.text.toString()
             postInfo.explain = binding.writeExplain.text.toString()
-            firestore?.collection("post")?.document()?.set(postInfo)
+
+            val newDocumentRef = firestore?.collection("post")?.document()
+            val documentId = newDocumentRef?.id
+            //먼저 생성될 다큐먼트 아이디를 가져오고 그 다큐먼트 안에 set을 하는 방식으로 바꿈
+            if (documentId != null) {
+                postInfo.documentID= documentId
+
+                newDocumentRef.set(postInfo)
+
+
+            }
+
 
             val ft = parentFragmentManager.beginTransaction()
 
