@@ -61,19 +61,24 @@ class DetailsActivity : AppCompatActivity() {
 
             if(userId != null && mAuth.currentUser?.uid == userId){
                 if (documentId != null) {
+
+                    //솔드 필드 업데이트
                     db.collection("post")
                         .document(documentId)
                         .update("sold",true)
                         .addOnSuccessListener {
                             // Update successful
-                            Toast.makeText(this, "Item marked as sold", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "거래 성사!", Toast.LENGTH_SHORT).show()
                         }
                         .addOnFailureListener { e ->
                             // Handle failure
-                            Toast.makeText(this, "Failed to mark item as sold", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "잠시 후 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
                         }
                 }
 
+            }else {
+                // Display toast if the current user is not the creator
+                Toast.makeText(this, "오직 작성자만이 클릭할 수 있습니다.", Toast.LENGTH_SHORT).show()
             }
         }
 
