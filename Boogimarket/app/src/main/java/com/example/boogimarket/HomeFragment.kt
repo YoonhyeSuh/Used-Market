@@ -2,6 +2,7 @@ package com.example.boogimarket
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class HomeFragment : Fragment() {
 
-    private var firestore: FirebaseFirestore? = null
+    private lateinit var firestore: FirebaseFirestore
     private lateinit var recyclerview: RecyclerView
 
     override fun onCreateView(
@@ -58,17 +59,33 @@ class HomeFragment : Fragment() {
     inner class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         var post: ArrayList<ProductInformation> = arrayListOf()
 
+//        init {
+//            // post 컬렉션의 변경 사항 감지 후 recyclerview 업데이트
+//            firestore?.collection("post")?.addSnapshotListener { querySnapshot, _ ->
+//                post.clear()
+//                for (snapshot in querySnapshot!!.documents) {
+//                    val item = snapshot.toObject(ProductInformation::class.java)
+//                    post.add(item!!)
+//                }
+//                notifyDataSetChanged()
+//            }
+//        }
+
         init {
-            // post 컬렉션의 변경 사항 감지 후 recyclerview 업데이트
             firestore?.collection("post")?.addSnapshotListener { querySnapshot, _ ->
-                post.clear()
-                for (snapshot in querySnapshot!!.documents) {
-                    val item = snapshot.toObject(ProductInformation::class.java)
-                    post.add(item!!)
+                if (querySnapshot != null) {
+                    post.clear()
+                    for (snapshot in querySnapshot.documents) {
+                        val item = snapshot.toObject(ProductInformation::class.java)
+                        post.add(item!!)
+                    }
+                    notifyDataSetChanged()
+                } else {
+                    Log.e("Firestore", "Query snapshot is null.")
                 }
-                notifyDataSetChanged()
             }
         }
+
 
         override fun onCreateViewHolder(
             parent: ViewGroup,
