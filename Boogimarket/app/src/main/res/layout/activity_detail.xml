@@ -7,7 +7,7 @@
     android:padding="16dp">
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/imageEdit"
         android:layout_width="84dp"
         android:layout_height="wrap_content"
         android:layout_gravity="right"

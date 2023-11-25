@@ -25,7 +25,7 @@ class ChatFragment : Fragment(R.layout.activity_chatlist) {
         adapter = UserAdapter(requireContext(), userList)
         binding.userChatlistView.layoutManager = LinearLayoutManager(requireContext())
         binding.userChatlistView.adapter = adapter
-
+    ///추후 수정 필수.....user List 쪽을 고민해봐야함...ㅜㅜ
         db.collection("users")
             .get()
             .addOnSuccessListener { result ->
