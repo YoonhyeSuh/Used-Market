@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +19,8 @@ class HomeFragment : Fragment() {
 
     private lateinit var firestore: FirebaseFirestore
     private lateinit var recyclerview: RecyclerView
+
+    private var soldCheckBox: Boolean = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,14 +49,16 @@ class HomeFragment : Fragment() {
             DividerItemDecoration(view.context, DividerItemDecoration.VERTICAL)
         )
 
-
         // 상품 등록 버튼 클릭시 WriteDialog 열기
         view.findViewById<FloatingActionButton>(R.id.floatingActionButton).setOnClickListener {
             WriteDialog().show(childFragmentManager, "WriteDialog")
         }
 
-        // price sorting, product sold state Add 필요.....
-
+       // 체크 박스 선택 시 판매 완료된 상품 제외
+        view.findViewById<CheckBox>(R.id.checkBox).setOnCheckedChangeListener { _, isChecked ->
+            soldCheckBox = isChecked
+            (recyclerview.adapter as? RecyclerViewAdapter)?.soldProductFilter()
+        }
     }
 
     inner class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -83,6 +88,22 @@ class HomeFragment : Fragment() {
                 } else {
                     Log.e("Firestore", "Query snapshot is null.")
                 }
+            }
+        }
+        fun soldProductFilter() {
+            firestore?.collection("post")?.get()?.addOnSuccessListener { querySnapshot ->
+                post.clear()
+                for (snapshot in querySnapshot) {
+                    val item = snapshot.toObject(ProductInformation::class.java)
+                    if (soldCheckBox && !item.sold) {
+                        post.add(item)
+                    }
+                    else if(!soldCheckBox) {
+                        post.add(item)
+                    }
+                }
+                notifyDataSetChanged()
+            }?.addOnFailureListener { exception ->
             }
         }
 
@@ -121,6 +142,7 @@ class HomeFragment : Fragment() {
                     intent.putExtra("item_explain",clickedItem.explain)
                     intent.putExtra("item_sold",clickedItem.sold)
                     intent.putExtra("item_userId",clickedItem.userId)
+                    intent.putExtra("item_documentId",clickedItem.documentID)
                     // Add other data you want to pass
 
                     // Start the DetailsActivity
