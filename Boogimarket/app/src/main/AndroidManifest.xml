@@ -40,18 +40,6 @@
             <!-- Add any necessary intent filters or configurations here -->
         </activity>
 
-        <activity
-            android:name=".ModifyActivity"
-            android:label="ModifyActivity">
-            <!-- Add any necessary intent filters or configurations here -->
-        </activity>
-
-        <activity
-            android:name=".MyPageActivity"
-            android:exported="false"
-            android:parentActivityName=".MainActivity" />
-
-        <activity
             android:name=".ChatActivity"
             android:exported="false" />
         <activity
