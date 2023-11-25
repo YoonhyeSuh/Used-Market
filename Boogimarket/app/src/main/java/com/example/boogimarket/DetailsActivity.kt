@@ -63,6 +63,7 @@ class DetailsActivity : AppCompatActivity() {
                 }
             }
 
+
         binding.buttonCompleteTransaction.setOnClickListener {
 
             if(userId != null && mAuth.currentUser?.uid == userId){
@@ -103,7 +104,33 @@ class DetailsActivity : AppCompatActivity() {
         }
 
 
+        binding.buttonChat.setOnClickListener{
+
+            val chatFragment = ChatFragment()
+
+            val bundle = Bundle()
+
+            if(mAuth.currentUser?.uid != userId) {
+
+                bundle.putString("userId", userId)
+                chatFragment.arguments = bundle
+
+                val intent = Intent(this@DetailsActivity, ChatActivity::class.java)
+
+                val name = binding.textViewName.text
+
+
+                intent.putExtra("name", name)
+                intent.putExtra("uId", userId)
+
+                startActivity(intent)
+            }
+
+
+        }
+
 
 
     }
 }
+

@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MessageAdapter(private val context: Context, private val messageList:ArrayList<Message> ) :
@@ -37,6 +40,7 @@ class MessageAdapter(private val context: Context, private val messageList:Array
             if(holder.javaClass== SendViewHolder::class.java){
                 val viewHolder =holder as SendViewHolder
                 viewHolder.sendMessage.text = currentMessage.message
+
             }else{
                 val viewHolder =holder as ReceiveViewHolder
                 viewHolder.receiveMessage.text = currentMessage.message
@@ -62,6 +66,7 @@ class MessageAdapter(private val context: Context, private val messageList:Array
         class SendViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val sendMessage: TextView =
                 itemView.findViewById(R.id.send_txt_message)//보낸쪽 뷰를 전달 받아 객체로 저장
+
 
         }
 

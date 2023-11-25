@@ -1,6 +1,7 @@
 package com.example.boogimarket
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,26 +20,34 @@ class ChatFragment : Fragment(R.layout.activity_chatlist) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = ActivityChatlistBinding.bind(view)
+
+        val uId = arguments?.getString("userId")
+        if (uId != null) {
+            print(uId)
+        }
+
         mAuth = Firebase.auth
         db = FirebaseFirestore.getInstance()
         userList = ArrayList()
         adapter = UserAdapter(requireContext(), userList)
         binding.userChatlistView.layoutManager = LinearLayoutManager(requireContext())
         binding.userChatlistView.adapter = adapter
-    ///추후 수정 필수.....user List 쪽을 고민해봐야함...ㅜㅜ
-        db.collection("users")
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    val currentUser = document.toObject(User::class.java)
-                    if (mAuth.currentUser?.uid != currentUser.userId) {
+
+        // 전달된 userId를 갖고 있는 사용자 문서를 가져옵니다.
+        if (uId != null) {
+            db.collection("users")
+                .whereEqualTo("userId", uId)
+                .get()
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        val currentUser = document.toObject(User::class.java)
                         userList.add(currentUser)
                     }
+                    adapter.notifyDataSetChanged()
                 }
-                adapter.notifyDataSetChanged()
-            }
-            .addOnFailureListener { exception ->
-                // 에러 처리
-            }
+                .addOnFailureListener { exception ->
+                    // 실패 처리
+                }
+        }
     }
 }
