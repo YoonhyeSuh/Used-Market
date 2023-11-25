@@ -104,6 +104,7 @@ class HomeFragment : Fragment() {
                     intent.putExtra("item_explain",clickedItem.explain)
                     intent.putExtra("item_sold",clickedItem.sold)
                     intent.putExtra("item_userId",clickedItem.userId)
+                    intent.putExtra("item_documentId",clickedItem.documentID)
                     // Add other data you want to pass
 
                     // Start the DetailsActivity
