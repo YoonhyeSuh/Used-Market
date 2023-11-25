@@ -1,6 +1,7 @@
 package com.example.boogimarket
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -76,6 +77,20 @@ class DetailsActivity : AppCompatActivity() {
                         }
                 }
 
+            }else {
+                // Display toast if the current user is not the creator
+                Toast.makeText(this, "오직 작성자만이 클릭할 수 있습니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.imageEdit.setOnClickListener{
+
+            if(userId != null && mAuth.currentUser?.uid == userId){
+                val intent = Intent(this@DetailsActivity, ModifyActivity::class.java)
+
+                intent.putExtra("documentId", documentId)
+
+                startActivity(intent)
             }else {
                 // Display toast if the current user is not the creator
                 Toast.makeText(this, "오직 작성자만이 클릭할 수 있습니다.", Toast.LENGTH_SHORT).show()
