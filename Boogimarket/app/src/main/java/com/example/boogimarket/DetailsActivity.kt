@@ -106,16 +106,31 @@ class DetailsActivity : AppCompatActivity() {
 
         binding.buttonChat.setOnClickListener{
 
-            val intent = Intent(this@DetailsActivity, ChatActivity::class.java)
+            val chatFragment = ChatFragment()
 
-            val name = binding.textViewName.text
-            intent.putExtra("name", name)
-            intent.putExtra("uId",userId)
+            val bundle = Bundle()
 
-            startActivity(intent)
+            if(mAuth.currentUser?.uid != userId) {
+
+                bundle.putString("userId", userId)
+                chatFragment.arguments = bundle
+
+                val intent = Intent(this@DetailsActivity, ChatActivity::class.java)
+
+                val name = binding.textViewName.text
+
+
+                intent.putExtra("name", name)
+                intent.putExtra("uId", userId)
+
+                startActivity(intent)
+            }
+
+
         }
 
 
 
     }
 }
+
