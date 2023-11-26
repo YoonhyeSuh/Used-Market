@@ -64,18 +64,6 @@ class HomeFragment : Fragment() {
     inner class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         var post: ArrayList<ProductInformation> = arrayListOf()
 
-//        init {
-//            // post 컬렉션의 변경 사항 감지 후 recyclerview 업데이트
-//            firestore?.collection("post")?.addSnapshotListener { querySnapshot, _ ->
-//                post.clear()
-//                for (snapshot in querySnapshot!!.documents) {
-//                    val item = snapshot.toObject(ProductInformation::class.java)
-//                    post.add(item!!)
-//                }
-//                notifyDataSetChanged()
-//            }
-//        }
-
         init {
             firestore?.collection("post")?.addSnapshotListener { querySnapshot, _ ->
                 if (querySnapshot != null) {
