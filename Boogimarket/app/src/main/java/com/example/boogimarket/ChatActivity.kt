@@ -41,8 +41,14 @@ class ChatActivity : AppCompatActivity() {
 
         val senderUid = mAuth.currentUser?.uid
 
-        senderRoom = "chat_$receiverUid$senderUid"
-        receiverRoom = "chat_$senderUid$receiverUid"
+//        senderRoom = "chat_$receiverUid$senderUid"
+//        receiverRoom = "chat_$senderUid$receiverUid"
+
+        val chatRoomId = if (senderUid!! < receiverUid) {
+            "chat_$senderUid$receiverUid"
+        } else {
+            "chat_$receiverUid$senderUid"
+        }
 
         binding.txtTitle.text = receiverName
 
@@ -51,32 +57,41 @@ class ChatActivity : AppCompatActivity() {
             val messageObject = Message(message, senderUid)
             messageObject.timestamp = FieldValue.serverTimestamp()
 
-            db.collection("chats").document(senderRoom)
-                .collection("messages").add(messageObject)
-                .addOnSuccessListener {
-                    db.collection("chats").document(receiverRoom)
-                        .collection("messages").add(messageObject)
-                }
+//            if (senderUid != null) {
+//                db.collection("chats").document(senderRoom)
+//                    .collection("messages").add(messageObject)
+//                    .addOnSuccessListener {
+//                        db.collection("chats").document(receiverRoom)
+//                            .collection("messages").add(messageObject)
+//                    }
+//            }
+
+            if (senderUid != null) {
+                db.collection("chats").document(chatRoomId)
+                    .collection("messages").add(messageObject)
+            }
 
             binding.edtMessage.setText("")
         }
 
-        db.collection("chats").document(senderRoom)
-            .collection("messages")
-            .orderBy("timestamp", Query.Direction.ASCENDING) // ASCENDING or DESCENDING
-            .addSnapshotListener { snapshot, error ->
-                if (error != null) {
-                    // Handle error
-                    return@addSnapshotListener
-                }
+        if (senderUid != null) {
+            db.collection("chats").document(chatRoomId)
+                .collection("messages")
+                .orderBy("timestamp", Query.Direction.ASCENDING) // ASCENDING or DESCENDING
+                .addSnapshotListener { snapshot, error ->
+                    if (error != null) {
+                        // Handle error
+                        return@addSnapshotListener
+                    }
 
-                messageList.clear()
-                snapshot?.forEach { document ->
-                    val message = document.toObject(Message::class.java)
-                    messageList.add(message)
-                }
+                    messageList.clear()
+                    snapshot?.forEach { document ->
+                        val message = document.toObject(Message::class.java)
+                        messageList.add(message)
+                    }
 
-                messageAdapter.notifyDataSetChanged()
-            }
+                    messageAdapter.notifyDataSetChanged()
+                }
+        }
     }
 }

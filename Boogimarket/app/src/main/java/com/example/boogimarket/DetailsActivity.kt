@@ -5,11 +5,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.boogimarket.databinding.ActivityDetailBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
 
 
 class DetailsActivity : AppCompatActivity() {
@@ -17,7 +19,6 @@ class DetailsActivity : AppCompatActivity() {
     private  lateinit var binding: ActivityDetailBinding
     private lateinit var db: FirebaseFirestore
     private lateinit var mAuth: FirebaseAuth
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,8 +32,12 @@ class DetailsActivity : AppCompatActivity() {
         val explain = intent.getStringExtra("item_explain")
         val sold = intent.getBooleanExtra("item_sold", false)
         val userId = intent.getStringExtra("item_userId")
+        val imgUrl = intent.getStringExtra("item_imgUrl")
         val documentId = intent.getStringExtra("item_documentId")
+
         // Retrieve other data as needed
+
+
 
         // Create an instance of the generated binding class for the layout
         binding = ActivityDetailBinding.inflate(layoutInflater)
@@ -45,6 +50,10 @@ class DetailsActivity : AppCompatActivity() {
         binding.textViewExplain.setText("설명: "+ explain).toString()
         binding.textViewPrice.setText("가격: "+price).toString()
         binding.textViewLocation.setText("거래 장소: " +location).toString()
+
+        Picasso.get()
+            .load(imgUrl)
+            .into(binding.imageViewProduct)
 
 
         if (sold) {
@@ -105,15 +114,8 @@ class DetailsActivity : AppCompatActivity() {
 
 
         binding.buttonChat.setOnClickListener{
-
-            val chatFragment = ChatFragment()
-
-            val bundle = Bundle()
-
             if(mAuth.currentUser?.uid != userId) {
 
-                bundle.putString("userId", userId)
-                chatFragment.arguments = bundle
 
                 val intent = Intent(this@DetailsActivity, ChatActivity::class.java)
 
