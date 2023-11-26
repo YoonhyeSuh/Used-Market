@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.boogimarket.databinding.ItemLayoutBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.firestore.FirebaseFirestore
+import com.squareup.picasso.Picasso
 
 class HomeFragment : Fragment() {
 
@@ -130,6 +131,7 @@ class HomeFragment : Fragment() {
                     intent.putExtra("item_explain",clickedItem.explain)
                     intent.putExtra("item_sold",clickedItem.sold)
                     intent.putExtra("item_userId",clickedItem.userId)
+                    intent.putExtra("item_imgUrl",clickedItem.imgUri)
                     intent.putExtra("item_documentId",clickedItem.documentID)
                     // Add other data you want to pass
 
@@ -144,6 +146,11 @@ class HomeFragment : Fragment() {
                 binding.listTitle.text = item.title
                 binding.listLocation.text = item.location
                 binding.listPrice.text = "${item.price}원"
+                val imageUrl = item.imgUri
+
+                Picasso.get()
+                    .load(imageUrl)
+                    .into(binding.listImageView)
 
             }
         }
