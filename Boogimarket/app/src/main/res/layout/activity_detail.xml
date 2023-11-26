@@ -15,6 +15,13 @@
         android:background="@color/white"
         app:srcCompat="@drawable/baseline_edit_24" />
 
+    <Button
+        android:id="@+id/delete_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="Delete" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -31,7 +38,7 @@
         <ImageView
             android:id="@+id/imageViewProduct"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="400dp"
             android:scaleType="centerCrop" />
         <!--            android:src="@drawable/placeholder_image"-->
         <!--            android:contentDescription="@string/product_image" />-->
