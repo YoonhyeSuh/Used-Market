@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -146,6 +147,13 @@ class HomeFragment : Fragment() {
                 binding.listTitle.text = item.title
                 binding.listLocation.text = item.location
                 binding.listPrice.text = "${item.price}원"
+                if(item.sold){
+                    binding.listSold.setText("판매 중")
+
+                }else{
+                    binding.listSold.setText("판매 완료")
+                }
+
                 val imageUrl = item.imgUri
 
                 Picasso.get()
@@ -166,3 +174,5 @@ class HomeFragment : Fragment() {
         }
     }
 }
+
+
