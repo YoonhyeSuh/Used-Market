@@ -40,8 +40,8 @@
 <!--        </activity>-->
         <activity
             android:name=".DetailsActivity"
-            android:label="DetailsActivity">
-            <!-- Add any necessary intent filters or configurations here -->
+            android:label="DetailsActivity"
+            android:parentActivityName=".MainActivity">
         </activity>
 
         <activity
@@ -55,7 +55,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false">
+            android:exported="true">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
 
