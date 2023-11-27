@@ -148,10 +148,10 @@ class HomeFragment : Fragment() {
                 binding.listLocation.text = item.location
                 binding.listPrice.text = "${item.price}원"
                 if(item.sold){
-                    binding.listSold.setText("판매 중")
+                    binding.listSold.setText("판매 완료")
 
                 }else{
-                    binding.listSold.setText("판매 완료")
+                    binding.listSold.setText("거래 가능")
                 }
 
                 val imageUrl = item.imgUri

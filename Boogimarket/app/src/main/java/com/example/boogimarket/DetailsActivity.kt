@@ -138,8 +138,6 @@ class DetailsActivity : AppCompatActivity() {
             showDeleteConfirmationDialog()
         }
 
-        //액션바 이름 설정
-        supportActionBar?.title = "DetailsActivity"
         //뒤로 가기 버튼
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
