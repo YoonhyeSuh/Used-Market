@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.boogimarket.databinding.ItemLayoutBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.squareup.picasso.Picasso
 
 class HomeFragment : Fragment() {
@@ -61,24 +62,27 @@ class HomeFragment : Fragment() {
             soldCheckBox = isChecked
             (recyclerview.adapter as? RecyclerViewAdapter)?.soldProductFilter()
         }
+
     }
 
     inner class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         var post: ArrayList<ProductInformation> = arrayListOf()
 
         init {
-            firestore?.collection("post")?.addSnapshotListener { querySnapshot, _ ->
-                if (querySnapshot != null) {
-                    post.clear()
-                    for (snapshot in querySnapshot.documents) {
-                        val item = snapshot.toObject(ProductInformation::class.java)
-                        post.add(item!!)
+            firestore?.collection("post")
+                ?.orderBy("timestamp", Query.Direction.DESCENDING)
+                ?.addSnapshotListener { querySnapshot, _ ->
+                    if (querySnapshot != null) {
+                        post.clear()
+                        for (snapshot in querySnapshot.documents) {
+                            val item = snapshot.toObject(ProductInformation::class.java)
+                            post.add(item!!)
+                        }
+                        notifyDataSetChanged()
+                    } else {
+                        Log.e("Firestore", "Query snapshot is null.")
                     }
-                    notifyDataSetChanged()
-                } else {
-                    Log.e("Firestore", "Query snapshot is null.")
                 }
-            }
         }
         fun soldProductFilter() {
             firestore?.collection("post")?.get()?.addOnSuccessListener { querySnapshot ->
@@ -148,10 +152,10 @@ class HomeFragment : Fragment() {
                 binding.listLocation.text = item.location
                 binding.listPrice.text = "${item.price}원"
                 if(item.sold){
-                    binding.listSold.setText("판매 중")
+                    binding.listSold.setText("판매 완료")
 
                 }else{
-                    binding.listSold.setText("판매 완료")
+                    binding.listSold.setText("거래 가능")
                 }
 
                 val imageUrl = item.imgUri
