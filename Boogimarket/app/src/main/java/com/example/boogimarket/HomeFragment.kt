@@ -85,7 +85,8 @@ class HomeFragment : Fragment() {
                 }
         }
         fun soldProductFilter() {
-            firestore?.collection("post")?.get()?.addOnSuccessListener { querySnapshot ->
+            firestore?.collection("post")?.orderBy("timestamp", Query.Direction.ASCENDING)?.get()
+                ?.addOnSuccessListener { querySnapshot ->
                 post.clear()
                 for (snapshot in querySnapshot) {
                     val item = snapshot.toObject(ProductInformation::class.java)
