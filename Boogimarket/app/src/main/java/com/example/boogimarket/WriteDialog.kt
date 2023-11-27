@@ -9,17 +9,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.MimeTypeMap
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.recyclerview.widget.RecyclerView
+import com.example.boogimarket.databinding.ActivityMypageBinding
+import com.example.boogimarket.databinding.ItemLayoutBinding
 import com.example.boogimarket.databinding.WriteProductBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.util.*
 
 class WriteDialog : BottomSheetDialogFragment() {
     private lateinit var binding: WriteProductBinding
-
+    private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
     private var firestore: FirebaseFirestore? = null
     private lateinit var storageRef: StorageReference
@@ -43,6 +47,7 @@ class WriteDialog : BottomSheetDialogFragment() {
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
         storageRef = FirebaseStorage.getInstance().getReference("images")
+        db = FirebaseFirestore.getInstance() // db를 초기화
 
         binding.imageAdd.setOnClickListener {
            getContent.launch("image/*")
@@ -50,7 +55,9 @@ class WriteDialog : BottomSheetDialogFragment() {
         // 작성 완료 버튼 클릭 시 작성한 데이터를 Firestore에 저장
         //jhr 후에 이미지 추가 예정
         binding.writeFinish.setOnClickListener {
+
             var postInfo = ProductInformation()
+            postInfo.timestamp = System.currentTimeMillis() // 현재 시간을 milliseconds로 저장
             postInfo.email = auth.currentUser?.email
             postInfo.userId = auth.uid.toString()
             postInfo.title = binding.writeTitle.text.toString()
@@ -68,6 +75,9 @@ class WriteDialog : BottomSheetDialogFragment() {
                 if (selectedImageUri != null) {
                     uploadImage(selectedImageUri!!, documentId)
                 }
+
+                // timestamp 설정
+                postInfo.timestamp = System.currentTimeMillis()
 
                 newDocumentRef.set(postInfo)
 
@@ -92,8 +102,9 @@ class WriteDialog : BottomSheetDialogFragment() {
         val imageRef = storageRef.child(imageFileName(imageUri))
 
         imageRef.putFile(imageUri)
-            .addOnSuccessListener {
-                // 이미지 업로드 성공 시 다운로드 URL을 Firestore에 저장
+            .addOnSuccessListener { uploadTask ->
+                // 이미지 업로드 성공 시
+                // 다운로드 URL을 가져오기 위해 이미지가 저장된 경로에서 다운로드 URL을 가져옴
                 imageRef.downloadUrl.addOnSuccessListener { uri ->
                     firestore?.collection("post")?.document(documentId)
                         ?.update("imgUri", uri.toString())
@@ -115,5 +126,52 @@ class WriteDialog : BottomSheetDialogFragment() {
                 ?: "jpg" // 기본적으로 jpg로 설정
         }"
     }
+
+    inner class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+        var post: ArrayList<ProductInformation> = arrayListOf()
+
+        init {
+            // Firestore에서 데이터를 가져오는 부분
+            db.collection("post")
+                .orderBy("timestamp", Query.Direction.DESCENDING)
+                .get()
+                .addOnSuccessListener { documents ->
+                    post.clear()
+                    for (snapshot in documents) {
+                        val item = snapshot.toObject(ProductInformation::class.java)
+                        post.add(item!!)
+                    }
+                    notifyDataSetChanged()
+                }
+                .addOnFailureListener { exception ->
+                    // 에러 처리
+                }
+        }
+
+        inner class ViewHolder(private val binding: ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+            // ViewHolder 클래스에서 View를 초기화하는 코드를 추가
+            init {
+                // Set click listener for the ViewHolder's view
+                binding.root.setOnClickListener(this)
+            }
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            val layoutInflater = LayoutInflater.from(parent.context)
+            val binding = ItemLayoutBinding.inflate(layoutInflater, parent, false)
+            return ViewHolder(binding)
+        }
+
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            val viewHolder = holder
+            viewHolder.bind(post[position])
+        }
+
+        override fun getItemCount(): Int {
+            // 아이템 수 반환
+            return post.size
+        }
+    }
+
 
 }
