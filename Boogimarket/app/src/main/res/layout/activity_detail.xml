@@ -44,7 +44,8 @@
         <ImageView
             android:id="@+id/imageViewProduct"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:scaleType="centerCrop" />
         <!--            android:src="@drawable/placeholder_image"-->
         <!--            android:contentDescription="@string/product_image" />-->
