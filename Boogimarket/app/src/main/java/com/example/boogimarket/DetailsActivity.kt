@@ -4,7 +4,9 @@ package com.example.boogimarket
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.ViewModelProvider
 import com.example.boogimarket.databinding.ActivityDetailBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -131,8 +133,48 @@ class DetailsActivity : AppCompatActivity() {
 
         }
 
+        //게시물 삭제
+        binding.deleteBtn.setOnClickListener {
+            showDeleteConfirmationDialog()
+        }
 
+        //액션바 이름 설정
+        supportActionBar?.title = "DetailsActivity"
+        //뒤로 가기 버튼
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
 
+    private fun showDeleteConfirmationDialog() {
+        val builder = AlertDialog.Builder(this)
+        val documentId = intent.getStringExtra("item_documentId")
+        builder.setTitle("게시물 삭제")
+            .setMessage("정말로 이 게시물을 삭제하시겠습니까?")
+            .setPositiveButton("삭제") { _, _ ->
+                // 확인 버튼을 눌렀을 때의 동작
+                deletePost(documentId.toString())
+            }
+            .setNegativeButton("취소") { _, _ ->
+                // 취소 버튼을 눌렀을 때의 동작
+            }
+            .show()
+    }
+
+    private fun deletePost(documentId: String) {
+        db.collection("post")
+            .document(documentId)
+            .delete()
+            .addOnSuccessListener {
+                // 삭제 성공 시
+                Toast.makeText(this, "게시물이 성공적으로 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                // 게시물이 삭제되면 이전 화면(HomeFragment 등)으로 돌아가도록 처리
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            .addOnFailureListener { e ->
+                // 삭제 실패 시
+                Toast.makeText(this, "게시물 삭제 중 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
+            }
     }
 }
 
