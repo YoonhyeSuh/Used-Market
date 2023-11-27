@@ -11,6 +11,7 @@ data class ProductInformation (
     var location : String? =null,
     var explain : String?=null,
     var sold : Boolean = false,
-    var documentID: String?=null
+    var documentID: String?=null,
+    var timestamp: Long = 0
 ) {
 }
