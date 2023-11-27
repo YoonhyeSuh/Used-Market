@@ -70,7 +70,7 @@ class HomeFragment : Fragment() {
 
         init {
             firestore?.collection("post")
-                ?.orderBy("timestamp", Query.Direction.DESCENDING)
+               ?.orderBy("timestamp", Query.Direction.ASCENDING)
                 ?.addSnapshotListener { querySnapshot, _ ->
                     if (querySnapshot != null) {
                         post.clear()

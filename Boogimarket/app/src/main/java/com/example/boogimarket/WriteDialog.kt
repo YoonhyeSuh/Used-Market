@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.example.boogimarket.databinding.WriteProductBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -57,6 +58,7 @@ class WriteDialog : BottomSheetDialogFragment() {
             postInfo.price = binding.writePrice.text.toString()
             postInfo.location = binding.writeLocation.text.toString()
             postInfo.explain = binding.writeExplain.text.toString()
+            FieldValue.serverTimestamp().also { postInfo.timestamp = it }
 
             val newDocumentRef = firestore?.collection("post")?.document()
             val documentId = newDocumentRef?.id
