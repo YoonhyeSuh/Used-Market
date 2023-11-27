@@ -99,6 +99,8 @@ class ModifyActivity: AppCompatActivity(){
                 // 이미지 업로드
                 if (selectedImageUri != null) {
                     uploadImage(selectedImageUri!!, documentId)
+                }else{
+                    updates.remove("imgUri")
                 }
                 db.collection("post").document(documentId)
                     .update(updates as Map<String, Any>)

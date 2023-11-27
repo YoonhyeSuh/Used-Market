@@ -49,9 +49,9 @@ class DetailsActivity : AppCompatActivity() {
         supportActionBar?.title = " 상세정보"
 
 
-        binding.textViewTitle.setText("상품명: "+title).toString()
+        binding.textViewTitle.setText(title).toString()
         binding.textViewExplain.setText("설명: "+ explain).toString()
-        binding.textViewPrice.setText("가격: "+price).toString()
+        binding.textViewPrice.setText("가격: "+price+"원").toString()
         binding.textViewLocation.setText("거래 장소: " +location).toString()
 
         Picasso.get()
@@ -60,9 +60,9 @@ class DetailsActivity : AppCompatActivity() {
 
 
         if (sold) {
-            binding.textViewSoldStatus.text = " 팔림"
+            binding.textViewSoldStatus.setText("팔림")
         } else {
-            binding.textViewSoldStatus.text = "구매 가능"
+            binding.textViewSoldStatus.setText("거래 가능")
         }
 
         db.collection("users")
