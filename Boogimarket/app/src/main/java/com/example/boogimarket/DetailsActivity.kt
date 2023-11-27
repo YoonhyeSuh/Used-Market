@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.boogimarket.databinding.ActivityDetailBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -137,24 +138,30 @@ class DetailsActivity : AppCompatActivity() {
         binding.deleteBtn.setOnClickListener {
             showDeleteConfirmationDialog()
         }
-        
+
         //뒤로 가기 버튼
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun showDeleteConfirmationDialog() {
-        val builder = AlertDialog.Builder(this)
-        val documentId = intent.getStringExtra("item_documentId")
-        builder.setTitle("게시물 삭제")
-            .setMessage("정말로 이 게시물을 삭제하시겠습니까?")
-            .setPositiveButton("삭제") { _, _ ->
-                // 확인 버튼을 눌렀을 때의 동작
-                deletePost(documentId.toString())
-            }
-            .setNegativeButton("취소") { _, _ ->
-                // 취소 버튼을 눌렀을 때의 동작
-            }
-            .show()
+        val userId = intent.getStringExtra("item_userId")
+        if(userId != null && mAuth.currentUser?.uid == userId) {
+            val builder = AlertDialog.Builder(this)
+            val documentId = intent.getStringExtra("item_documentId")
+            builder.setTitle("게시물 삭제")
+                .setMessage("정말로 이 게시물을 삭제하시겠습니까?")
+                .setPositiveButton("삭제") { _, _ ->
+                    // 확인 버튼을 눌렀을 때의 동작
+                    deletePost(documentId.toString())
+                }
+                .setNegativeButton("취소") { _, _ ->
+                    // 취소 버튼을 눌렀을 때의 동작
+                }
+                .show()
+        }else {
+        // Display toast if the current user is not the creator
+        Toast.makeText(this, "오직 작성자만이 클릭할 수 있습니다.", Toast.LENGTH_SHORT).show()
+    }
     }
 
     private fun deletePost(documentId: String) {
