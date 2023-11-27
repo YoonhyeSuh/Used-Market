@@ -131,8 +131,6 @@ class DetailsActivity : AppCompatActivity() {
 
         }
 
-
-
     }
 }
 
