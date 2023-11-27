@@ -54,7 +54,7 @@ class ChatActivity : AppCompatActivity() {
 
         binding.btnSubmit.setOnClickListener {
             val message = binding.edtMessage.text.toString()
-            val messageObject = Message(message, senderUid)
+            val messageObject = Message(message, senderUid, receiverUid)
             messageObject.timestamp = FieldValue.serverTimestamp()
 
 //            if (senderUid != null) {
