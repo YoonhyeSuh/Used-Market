@@ -1,12 +1,15 @@
 package com.example.boogimarket
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -154,8 +157,14 @@ class HomeFragment : Fragment() {
                 binding.listPrice.text = "${item.price}원"
                 if(item.sold){
                     binding.listSold.setText("판매 완료")
+                    binding.listSold.setTypeface(null, Typeface.NORMAL)
+                    binding.listSold.setTextColor(Color.parseColor("#8DB3A9CA"))
+//                    binding.listPrice.setTextColor(Color.parseColor("#8DB3A9CA"))
+//                    binding.listLocation.setTextColor(Color.parseColor("#8DB3A9CA"))
+//                    binding.listTitle.setTextColor(Color.parseColor("#8DB3A9CA"))
 
                 }else{
+                    binding.listSold.setTypeface(null, Typeface.NORMAL)
                     binding.listSold.setText("거래 가능")
                 }
 
@@ -179,5 +188,4 @@ class HomeFragment : Fragment() {
         }
     }
 }
-
 
