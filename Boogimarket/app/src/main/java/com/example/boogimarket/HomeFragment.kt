@@ -157,15 +157,12 @@ class HomeFragment : Fragment() {
                 binding.listPrice.text = "${item.price}원"
                 if(item.sold){
                     binding.listSold.setText("판매 완료")
-                    binding.listSold.setTypeface(null, Typeface.NORMAL)
                     binding.listSold.setTextColor(Color.parseColor("#8DB3A9CA"))
-//                    binding.listPrice.setTextColor(Color.parseColor("#8DB3A9CA"))
-//                    binding.listLocation.setTextColor(Color.parseColor("#8DB3A9CA"))
-//                    binding.listTitle.setTextColor(Color.parseColor("#8DB3A9CA"))
 
                 }else{
-                    binding.listSold.setTypeface(null, Typeface.NORMAL)
+
                     binding.listSold.setText("거래 가능")
+                    binding.listSold.setTextColor(Color.parseColor("#FF3700B3"))
                 }
 
                 val imageUrl = item.imgUri

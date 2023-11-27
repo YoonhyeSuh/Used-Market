@@ -81,14 +81,14 @@ class ModifyActivity: AppCompatActivity(){
         }
 
         binding.buttonEditPost.setOnClickListener {
-
+            val image = binding.imageViewProduct.imageAlpha.toString()
             val title = binding.editTextTitle.text.toString()
             val price = binding.editTextPrice.text.toString()
             val explain = binding.editTextDescription.text.toString()
             val location = binding.editTextLocation.text.toString()
 
             val updates = hashMapOf(
-
+                "imgUri" to image,
                 "explain" to explain,
                 "location" to location,
                 "price" to price,
