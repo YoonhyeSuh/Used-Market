@@ -46,6 +46,14 @@
             android:layout_marginTop="10dp"
             android:layout_below="@id/mypage_name" />
 
+        <Button
+            android:id="@+id/mysell_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="내가 쓴 글"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="70dp"
+            android:layout_below="@id/mypage_email"/>
         <TextView
             android:id="@+id/mypage_email"
             android:layout_width="wrap_content"
@@ -56,4 +64,6 @@
             android:layout_marginTop="10dp"
             android:layout_below="@id/mypage_birth" />
 
-    </RelativeLayout>
+
+
+</RelativeLayout>
