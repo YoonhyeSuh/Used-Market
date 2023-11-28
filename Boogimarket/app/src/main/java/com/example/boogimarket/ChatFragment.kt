@@ -27,6 +27,7 @@ class ChatFragment : Fragment(R.layout.activity_chatlist) {
         mAuth = Firebase.auth
         db = FirebaseFirestore.getInstance()
 
+        //val currentUserUid = mAuth.currentUser?.uid
         userList = ArrayList()
         adapter = UserAdapter(requireContext(), userList)
 
@@ -47,6 +48,37 @@ class ChatFragment : Fragment(R.layout.activity_chatlist) {
             .addOnFailureListener { exception ->
                 // 에러 처리
             }
+
+//        // 현재 사용자와 채팅한 사용자의 목록 가져오기
+//        if (currentUserUid != null) {
+//            db.collection("chats")
+//                .whereArrayContains("participants", currentUserUid)
+//                .get()
+//                .addOnSuccessListener { result ->
+//                    for (document in result) {
+//                        val participants = document.get("participants") as List<String>
+//                        val otherUserId = participants.firstOrNull { it != currentUserUid }
+//                        if (otherUserId != null) {
+//                            // otherUserId를 사용하여 사용자 정보 가져오기
+//                            db.collection("users").document(otherUserId)
+//                                .get()
+//                                .addOnSuccessListener { userDocument ->
+//                                    val otherUser = userDocument.toObject(User::class.java)
+//                                    if (otherUser != null) {
+//                                        userList.add(otherUser)
+//                                        adapter.notifyDataSetChanged()
+//                                    }
+//                                }
+//                                .addOnFailureListener { exception ->
+//                                    // 에러 처리
+//                                }
+//                        }
+//                    }
+//                }
+//                .addOnFailureListener { exception ->
+//                    // 에러 처리
+//                }
+//        }
     }
 }
 
