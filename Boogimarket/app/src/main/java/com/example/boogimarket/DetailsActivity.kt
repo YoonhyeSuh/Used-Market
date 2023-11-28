@@ -127,6 +127,7 @@ class DetailsActivity : AppCompatActivity() {
 
                 intent.putExtra("name", name)
                 intent.putExtra("uId", userId)
+                intent.putExtra("documentId", documentId)
 
                 startActivity(intent)
             }
