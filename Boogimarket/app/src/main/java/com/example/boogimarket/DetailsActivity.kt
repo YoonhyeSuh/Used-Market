@@ -117,7 +117,14 @@ class DetailsActivity : AppCompatActivity() {
 
 
         binding.buttonChat.setOnClickListener{
-            if(mAuth.currentUser?.uid != userId) {
+            val current = mAuth.currentUser?.uid
+            if(current != null && current != userId ) {
+
+                val log = chatlog(documentId)
+
+                if (documentId != null) {
+                    db.collection("chatlog").document(current).collection("log").add(log)
+                }
 
 
                 val intent = Intent(this@DetailsActivity, ChatActivity::class.java)
@@ -127,6 +134,7 @@ class DetailsActivity : AppCompatActivity() {
 
                 intent.putExtra("name", name)
                 intent.putExtra("uId", userId)
+                intent.putExtra("documentId", documentId)
 
                 startActivity(intent)
             }

@@ -4,22 +4,44 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <!-- User Name 텍스트뷰 -->
+
+    <!-- 프로필 이미지 -->
+
     <TextView
         android:id="@+id/name_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="25dp"
         android:textColor="#333333"
-        android:textStyle="normal"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="User Name" />
+        android:textSize="30sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/product_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="65dp"
+        android:textColor="#333333"
+        android:textSize="15sp" />
 
+    <ImageView
+        android:id="@+id/product_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="10dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/chatlist"
+        android:scaleType="centerCrop" />
+
+    <!-- 구분선 -->
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="1dp"
         android:layout_below="@id/name_text"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="55dp"
         android:background="#CCCCCC" />
 
 </RelativeLayout>
