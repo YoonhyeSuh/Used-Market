@@ -8,7 +8,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class UserAdapter(private val context: Context, private val userList: ArrayList<User>):
+
+class UserAdapter(private val context: Context, private val userList: ArrayList<Pair<User, String>>):
 RecyclerView.Adapter<UserAdapter.userViewHolder>(){
     //화면 설정
 
@@ -27,17 +28,18 @@ RecyclerView.Adapter<UserAdapter.userViewHolder>(){
     //data를 연결해주는 함수
     override fun onBindViewHolder(holder: userViewHolder, position: Int) {
 
-        //데이터 담기
-        val currentUser = userList[position]
-        //화면에 데이터 보여주기
-        holder.nameText.text = currentUser.name
-        //아이템 클릭 이벤트 -> 추후 변경 예정
-        holder.itemView.setOnClickListener{
 
+        val currentUserPair = userList[position]
+        val currentUser = currentUserPair.first // Retrieve the User object from the Pair
+        val documentId = currentUserPair.second // Retrieve the document ID from the Pair
+
+        holder.nameText.text = currentUser.name // Assuming 'name' is a field in the User object
+
+        holder.itemView.setOnClickListener {
             val intent = Intent(context, ChatActivity::class.java)
             intent.putExtra("name", currentUser.name)
             intent.putExtra("uId", currentUser.userId)
-
+            intent.putExtra("documentId", documentId) // Pass the document ID to the next activity
             context.startActivity(intent)
         }
     }

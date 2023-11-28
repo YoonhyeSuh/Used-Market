@@ -40,12 +40,6 @@ class ChatActivity : AppCompatActivity() {
 
         val senderUid = mAuth.currentUser?.uid
 
-//        val chatRoomId = if (senderUid!! < receiverUid) {
-//            "chat_$senderUid$receiverUid"
-//        } else {
-//            "chat_$receiverUid$senderUid"
-//        }
-
         val chatRoomId = documentId
 
         binding.txtTitle.text = receiverName
@@ -56,14 +50,7 @@ class ChatActivity : AppCompatActivity() {
             val messageObject = Message(message, senderUid, receiverUid)
             messageObject.timestamp = FieldValue.serverTimestamp()
 
-//            if (senderUid != null) {
-//                db.collection("chats").document(senderRoom)
-//                    .collection("messages").add(messageObject)
-//                    .addOnSuccessListener {
-//                        db.collection("chats").document(receiverRoom)
-//                            .collection("messages").add(messageObject)
-//                    }
-//            }
+
 
             if (senderUid != null) {
 
