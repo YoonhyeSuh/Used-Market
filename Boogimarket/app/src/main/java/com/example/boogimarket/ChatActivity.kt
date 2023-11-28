@@ -43,6 +43,13 @@ class ChatActivity : AppCompatActivity() {
         val chatRoomId = documentId
 
         binding.txtTitle.text = receiverName
+        db.collection("post").document(documentId).get()
+            .addOnSuccessListener { result->
+                if(result!=null){
+                    val title = result.getString("title")
+                    binding.txtSubtitle.setText(":"+title)
+                }
+            }
 
         binding.btnSubmit.setOnClickListener {
             //사용자로부터 메세지를 받고, 냅다 데이터클래스 형태로  만들어

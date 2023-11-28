@@ -5,11 +5,14 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.FirebaseFirestore
+import com.squareup.picasso.Picasso
 
-
-class UserAdapter(private val context: Context, private val userList: ArrayList<Pair<User, String>>):
+class UserAdapter(private val context: Context, private val userList: ArrayList<Pair<User, String>>
+,private val db: FirebaseFirestore ):
 RecyclerView.Adapter<UserAdapter.userViewHolder>(){
     //화면 설정
 
@@ -28,12 +31,29 @@ RecyclerView.Adapter<UserAdapter.userViewHolder>(){
     //data를 연결해주는 함수
     override fun onBindViewHolder(holder: userViewHolder, position: Int) {
 
-
         val currentUserPair = userList[position]
         val currentUser = currentUserPair.first // Retrieve the User object from the Pair
         val documentId = currentUserPair.second // Retrieve the document ID from the Pair
 
         holder.nameText.text = currentUser.name // Assuming 'name' is a field in the User object
+        db.collection("post").document(documentId).get()
+            .addOnSuccessListener { result ->
+
+                if (result != null) {
+                    val setProduct =
+                        result.getString("title") // Retrieve 'title' field from Firestore document
+                    val setPImage =
+                        result.getString("imgUri") // Retrieve 'imgUri' field from Firestore document
+
+                    holder.production.text =
+                        setProduct // Set 'title' to TextView 'production' in your ViewHolder
+                    Picasso.get()
+                        .load(setPImage) // Load image using Picasso
+                        .into(holder.image) // Set loaded image to ImageView 'image' in your ViewHolder
+                }
+            }
+
+
 
         holder.itemView.setOnClickListener {
             val intent = Intent(context, ChatActivity::class.java)
@@ -46,8 +66,13 @@ RecyclerView.Adapter<UserAdapter.userViewHolder>(){
 
     // 파라미터로 chatlist_design을 받았다
     class userViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+
         //user_layout을 받아서 텍스트 뷰에 객체를 만듬
         val nameText: TextView = itemView.findViewById(R.id.name_text)//따라서 user_layout의 nametext에 접근 가능
+        val production : TextView = itemView.findViewById(R.id.product_text)
+        val image : ImageView = itemView.findViewById(R.id.product_image)
 
     }
 }
+
+
