@@ -47,7 +47,7 @@ class ChatActivity : AppCompatActivity() {
             .addOnSuccessListener { result->
                 if(result!=null){
                     val title = result.getString("title")
-                    binding.txtSubtitle.setText(":"+title)
+                    binding.txtSubtitle.setText(": "+title)
                 }
             }
 
