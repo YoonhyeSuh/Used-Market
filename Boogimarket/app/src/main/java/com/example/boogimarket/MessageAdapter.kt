@@ -62,7 +62,6 @@ class MessageAdapter(private val context: Context, private val messageList:Array
             }
         }
 
-
         class SendViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val sendMessage: TextView =
                 itemView.findViewById(R.id.send_txt_message)//보낸쪽 뷰를 전달 받아 객체로 저장

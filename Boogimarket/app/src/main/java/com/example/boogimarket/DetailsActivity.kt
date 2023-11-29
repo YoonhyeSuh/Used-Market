@@ -28,7 +28,7 @@ class DetailsActivity : AppCompatActivity() {
 
         mAuth = Firebase.auth
         db = FirebaseFirestore.getInstance()
-        // Extracting data from the intent
+        // 인텐트에서 데이터 추출
         val title = intent.getStringExtra("item_title")
         val location = intent.getStringExtra("item_location")
         val price = intent.getStringExtra("item_price")
@@ -38,16 +38,10 @@ class DetailsActivity : AppCompatActivity() {
         val imgUrl = intent.getStringExtra("item_imgUrl")
         val documentId = intent.getStringExtra("item_documentId")
 
-        // Retrieve other data as needed
-
-
-
-        // Create an instance of the generated binding class for the layout
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         supportActionBar?.title = " 상세정보"
-
 
         binding.textViewTitle.setText(title).toString()
         binding.textViewExplain.setText("설명: "+ explain).toString()
@@ -57,7 +51,6 @@ class DetailsActivity : AppCompatActivity() {
         Picasso.get()
             .load(imgUrl)
             .into(binding.imageViewProduct)
-
 
         if (sold) {
             binding.textViewSoldStatus.setText("팔림")
