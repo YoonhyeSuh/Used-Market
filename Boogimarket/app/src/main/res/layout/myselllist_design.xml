@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
+
+    <ImageView
+        android:id="@+id/listImageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/listTitle"
+        android:layout_width="252dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_weight="1"
+        android:text="TextView"
+        android:textAlignment="viewStart"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/listImageView"
+        app:layout_constraintTop_toTopOf="@+id/listImageView" />
+
+    <TextView
+        android:id="@+id/listLocation"
+        android:layout_width="252dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight="1"
+        android:text="TextView"
+        android:textAlignment="viewStart"
+        android:textSize="16dp"
+        app:layout_constraintStart_toEndOf="@+id/listImageView"
+        app:layout_constraintTop_toBottomOf="@+id/listTitle" />
+
+    <TextView
+        android:id="@+id/listPrice"
+        android:layout_width="172dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="8dp"
+
+        android:layout_marginTop="5dp"
+        android:text="TextView"
+        android:textAlignment="viewStart"
+        android:textColor="#3C3C3C"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/listImageView"
+        app:layout_constraintTop_toBottomOf="@+id/listLocation" />
+
+
+    <TextView
+        android:id="@+id/listSold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/purple_700"
+        android:textStyle="bold"
+        android:text="판매중"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/listPrice"
+        app:layout_constraintTop_toBottomOf="@+id/listLocation" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

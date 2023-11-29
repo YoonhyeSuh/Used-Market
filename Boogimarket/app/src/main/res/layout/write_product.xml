@@ -17,6 +17,7 @@
             android:layout_gravity="center"
             android:text="ENTER INFORMATION"
             android:textColor="#888888"
+            android:textStyle="bold"
             android:textSize="20dp" />
         <ImageView
             android:id="@+id/write_cancel"
@@ -94,6 +95,7 @@
         android:layout_height="35dp"
         android:background="@color/navy"
         android:text="POST"
+        android:textStyle="bold"
         android:textColor="@android:color/white"
         android:textSize="23dp"
         android:textAlignment="center"
