@@ -37,19 +37,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-
-        }
-        return true
-
-    }
-
     // 현재 프래그먼트를 지정된 프래그먼트로 교체
     private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
