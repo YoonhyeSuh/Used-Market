@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="LOG OUT"
+        android:textStyle="bold"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="200dp"
         android:layout_below="@id/mypage_email"/>
@@ -32,6 +33,7 @@
             android:textSize="30dp"
             android:layout_centerHorizontal="true"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:layout_marginTop="10dp"
             android:layout_below="@id/mypage_image" />
 
@@ -51,6 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="내가 쓴 글"
+            android:textStyle="bold"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="70dp"
             android:layout_below="@id/mypage_email"/>
