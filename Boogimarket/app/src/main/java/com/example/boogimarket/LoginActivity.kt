@@ -32,8 +32,9 @@ class LoginActivity : AppCompatActivity() {
             val email = binding.email.text.toString()
             val password = binding.password.text.toString()
 
-            logIn(email, password)
-
+            if(email.isNotEmpty() && password.isNotEmpty()) {
+                logIn(email, password)
+            }
         }
 
         //회원가입 버튼 이벤트

@@ -32,6 +32,7 @@ class RegisterActivity : AppCompatActivity() {
 
             //trim() 공백 제거
             //이메일, 비밀번호, 이름, 생일 저장
+
             val email = binding.email.text.toString().trim()
             val password = binding.password.text.toString().trim()
             val name = binding.name.text.toString().trim()
@@ -39,7 +40,9 @@ class RegisterActivity : AppCompatActivity() {
 
             //signUp 함수 호출 회원 정보 등록
             //이메일과 비밀번호 인자로 넘김
-            signUp(email, password, name, birth)
+            if(email.isNotEmpty() && password.isNotEmpty() && name.isNotEmpty() && birth.isNotEmpty()) {
+                signUp(email, password, name, birth)
+            }
         }
 
         //액션바 이름 설정
