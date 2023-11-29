@@ -2,6 +2,7 @@ package com.example.boogimarket
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.boogimarket.databinding.ActivityChatroomBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -85,6 +86,10 @@ class ChatActivity : AppCompatActivity() {
 
                     messageAdapter.notifyDataSetChanged()
                 }
+        }
+
+        binding.backBtn.setOnClickListener {
+            finish()
         }
     }
 }
