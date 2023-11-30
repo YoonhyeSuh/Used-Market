@@ -2,6 +2,7 @@ package com.example.boogimarket
 
 
 import android.content.Intent
+import android.content.IntentSender
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -174,7 +175,7 @@ class DetailsActivity : AppCompatActivity() {
             .delete()
             .addOnSuccessListener {
                 // 삭제 성공 시
-                leaveChatRoom(documentId)
+                findSender(documentId)
                 Toast.makeText(this, "게시물이 성공적으로 삭제되었습니다.", Toast.LENGTH_SHORT).show()
                 // 게시물이 삭제되면 이전 화면(HomeFragment 등)으로 돌아가도록 처리
                 val intent = Intent(this, MainActivity::class.java)
@@ -187,40 +188,73 @@ class DetailsActivity : AppCompatActivity() {
             }
     }
 
-    private fun leaveChatRoom(documentId: String) {
+    private fun findSender(documentId: String) {
 
         val user = mAuth.currentUser?.uid
+        db.collection("chats").document(documentId).collection("messages").get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val sId = document.getString("sendId")
+                    val rId = document.getString("receiveId")
 
-        if (user != null) {
-            val chatLogRef = db.collection("chatlog").document(user).collection("log")
-            chatLogRef.whereEqualTo("documentId", documentId).get()
-                .addOnSuccessListener { documents ->
-                    for (document in documents) {
-                        for (document in documents) {
-                            // 업데이트할 문서에 대한 참조
-                            val docRef = db.collection("chatlog").document(user).collection("log")
-                                .document(document.id)
-
-                            // FieldValue.delete()를 사용하여 삭제할 필드를 HashMap으로 지정
-                            val updates = hashMapOf<String, Any>(
-                                "documentId" to FieldValue.delete()
-                                // 실제 필드 이름으로 "fieldNameToDelete"를 대체하세요
-                            )
-
-                            // 지정된 필드를 삭제하는 업데이트 수행
-                            docRef.update(updates)
-                                .addOnSuccessListener {
-                                    // 삭제 성공
-                                }
-                                .addOnFailureListener { e ->
-                                    // 필요시 실패 처리
-
-                                }
+                    if (sId != user) {
+                        val sendUser = sId
+                        if (sendUser != null) {
+                            deleteChatlog(documentId, sendUser)
+                        }
+                    } else {
+                        val sendUser = rId
+                        if (sendUser != null) {
+                            deleteChatlog(documentId, sendUser)
                         }
                     }
                 }
-        }
+
+            }
+    }
+
+    private fun deleteChatlog(documentId: String, sendUser: String) {
+
+
+        val chatLogRef = db.collection("chatlog").document(sendUser).collection("log")
+        chatLogRef.whereEqualTo("documentId", documentId).get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    // 업데이트할 문서에 대한 참조
+                    chatLogRef.document(document.id).delete()
+
+                    deleteChatRoom(documentId)
+
+                }
+            }
+    }
+
+    private fun deleteChatRoom(documentId: String) {
+        val chatRef = db.collection("chats").document(documentId)
+
+        chatRef.collection("messages").get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    chatRef.collection("messages").document(document.id).delete()
+                }
+                chatRef.delete()
+            }
     }
 }
+
+
+//
+//val updates = hashMapOf<String, Any>(
+//    "documentId" to FieldValue.delete()
+//    // 실제 필드 이름으로 "fieldNameToDelete"를 대체하세요
+//)
+//
+//// 지정된 필드를 삭제하는 업데이트 수행
+//docRef.update(updates)
+//.addOnSuccessListener {
+//    // 삭제 성공
+//}
+//.addOnFailureListener { e ->
+//    // 필요시 실패 처리
 
 
