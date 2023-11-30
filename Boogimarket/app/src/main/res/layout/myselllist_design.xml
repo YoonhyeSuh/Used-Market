@@ -8,7 +8,7 @@
     android:paddingRight="10dp">
 
     <ImageView
-        android:id="@+id/listImageView"
+        android:id="@+id/sell_listImageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="10dp"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/listTitle"
+        android:id="@+id/sell_listTitle"
         android:layout_width="252dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -26,11 +26,11 @@
         android:textAlignment="viewStart"
         android:textSize="18dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/listImageView"
-        app:layout_constraintTop_toTopOf="@+id/listImageView" />
+        app:layout_constraintStart_toEndOf="@+id/sell_listImageView"
+        app:layout_constraintTop_toTopOf="@+id/sell_listImageView" />
 
     <TextView
-        android:id="@+id/listLocation"
+        android:id="@+id/sell_listLocation"
         android:layout_width="252dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -39,16 +39,17 @@
         android:text="TextView"
         android:textAlignment="viewStart"
         android:textSize="16dp"
-        app:layout_constraintStart_toEndOf="@+id/listImageView"
-        app:layout_constraintTop_toBottomOf="@+id/listTitle" />
+        app:layout_constraintStart_toEndOf="@+id/sell_listImageView"
+        app:layout_constraintTop_toBottomOf="@+id/sell_listTitle" />
+
 
     <TextView
-        android:id="@+id/listPrice"
+        android:id="@+id/sell_listPrice"
         android:layout_width="172dp"
         android:layout_height="21dp"
         android:layout_marginStart="8dp"
 
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="4dp"
         android:text="TextView"
         android:textAlignment="viewStart"
         android:textColor="#3C3C3C"
@@ -56,12 +57,11 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/listImageView"
-        app:layout_constraintTop_toBottomOf="@+id/listLocation" />
-
+        app:layout_constraintStart_toEndOf="@+id/sell_listImageView"
+        app:layout_constraintTop_toBottomOf="@+id/sell_listLocation" />
 
     <TextView
-        android:id="@+id/listSold"
+        android:id="@+id/sell_listSold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -72,7 +72,7 @@
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/listPrice"
-        app:layout_constraintTop_toBottomOf="@+id/listLocation" />
+        app:layout_constraintStart_toEndOf="@+id/sell_listPrice"
+        app:layout_constraintTop_toBottomOf="@+id/sell_listLocation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
