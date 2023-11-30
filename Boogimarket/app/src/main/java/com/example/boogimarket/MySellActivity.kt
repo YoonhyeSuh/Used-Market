@@ -40,6 +40,10 @@ class MySellActivity : AppCompatActivity() {
         binding.userSellListView.adapter = adapter
 
         getPostsByUser()
+
+        binding.backBtn.setOnClickListener {
+            finish()
+        }
     }
 
     private fun getPostsByUser() {
