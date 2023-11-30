@@ -55,8 +55,8 @@ class ChatActivity : AppCompatActivity() {
             val messageObject = Message(message, senderUid, receiverUid)
             messageObject.timestamp = FieldValue.serverTimestamp()
 
-
-            if (senderUid != null) {
+            //메세지 내용이 비어있지 않으면 추가해라
+            if (senderUid != null&& messageObject.message!="") {
 
                 //db에 저장 같은 방을 쓰게끔 구현 걍 사용자가 메세지를 치면 냅다 여기로 들어가
                 db.collection("chats").document(chatRoomId)
