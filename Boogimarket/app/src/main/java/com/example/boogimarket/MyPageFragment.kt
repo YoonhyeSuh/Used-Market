@@ -14,12 +14,12 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import com.example.boogimarket.databinding.ActivityMypageBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
 import java.util.*
@@ -119,12 +119,20 @@ class MyPageFragment : Fragment() {
             requireActivity().finish()
         }
 
+
 //        // ActionBar 설정
 //        (activity as AppCompatActivity?)?.supportActionBar?.title = "MyPageFragment"
 //
 //        // 뒤로 가기 버튼 설정
 //        (activity as AppCompatActivity?)?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+
+
+        binding.mysellBtn.setOnClickListener{
+            //액티비티의 이동은 intent
+            val intent: Intent = Intent(requireContext(), MySellActivity::class.java)
+            startActivity(intent)
+        }
 
 
     }

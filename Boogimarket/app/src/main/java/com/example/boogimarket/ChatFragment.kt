@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.boogimarket.databinding.ActivityChatlistBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -30,6 +31,11 @@ class ChatFragment : Fragment(R.layout.activity_chatlist) {
 
         binding.userChatlistView.layoutManager = LinearLayoutManager(requireContext())
         binding.userChatlistView.adapter = adapter
+
+        // recyclerview 아이템 간 구분선 추가
+        binding.userChatlistView.addItemDecoration(
+            DividerItemDecoration(view.context, DividerItemDecoration.VERTICAL)
+        )
 
         val currentUser = mAuth.currentUser?.uid
 
