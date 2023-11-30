@@ -4,9 +4,17 @@
     android:orientation="vertical"
     android:gravity="center"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-    <androidx.recyclerview.widget.RecyclerView
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/back_btn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/baseline_arrow_back_24"
+        android:layout_gravity="start"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/user_sellListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
