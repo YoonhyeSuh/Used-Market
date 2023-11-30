@@ -144,8 +144,9 @@ class DetailsActivity : AppCompatActivity() {
             showDeleteConfirmationDialog()
         }
 
-        //뒤로 가기 버튼
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding.backBtn.setOnClickListener {
+            finish()
+        }
     }
 
     private fun showDeleteConfirmationDialog() {
