@@ -42,8 +42,6 @@ class ModifyActivity: AppCompatActivity(){
 
         //액션바 이름 설정
         supportActionBar?.title = " 게시글 수정"
-        //뒤로 가기 버튼
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding = ActivityModifyBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -118,6 +116,9 @@ class ModifyActivity: AppCompatActivity(){
                         Toast.makeText(this, "수정 실패했습니다.", Toast.LENGTH_SHORT).show()
                     }
             }
+        }
+        binding.backBtn.setOnClickListener {
+            finish()
         }
     }
     private fun uploadImage(imageUri: Uri, documentId: String) {

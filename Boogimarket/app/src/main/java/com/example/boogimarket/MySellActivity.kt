@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.boogimarket.databinding.ActivityMyselllistBinding
@@ -66,31 +67,45 @@ class MySellActivity : AppCompatActivity(), MySellListAdapter.OnItemClickListene
     private fun getPostsByUser() {
         userId = currentUser?.uid
 
-        if(userId != null){
-
+        if(userId != null) {
             db.collection("post")
                 .whereEqualTo("userId", userId)
                 .get()
                 .addOnSuccessListener { documents ->
-                    for (document in documents) {
-                        val title = document.getString("title")
-                        val price = document.getString("price")
-                        val imageUrl = document.getString("imgUri")
-                        val sold = document.getBoolean("sold") ?: false
-                        val location = document.getString("location")
-                        val email = document.getString("email")
-                        val userId = document.getString("userId")
-                        val documentId = document.getString("documentID")
-                        val explain = document.getString("explain")
-                        val post = ProductInformation(email, userId, imageUrl, title, price, location, explain, sold, documentId)
-                        postList.add(post)
+                    if (documents.isEmpty) {
+                        // 사용자가 작성한 글이 없는 경우
+                        Toast.makeText(this, "작성한 글이 없습니다!", Toast.LENGTH_SHORT).show()
+                    } else {
+                        for (document in documents) {
+                            val title = document.getString("title")
+                            val price = document.getString("price")
+                            val imageUrl = document.getString("imgUri")
+                            val sold = document.getBoolean("sold") ?: false
+                            val location = document.getString("location")
+                            val email = document.getString("email")
+                            val userId = document.getString("userId")
+                            val documentId = document.getString("documentID")
+                            val explain = document.getString("explain")
+                            val post = ProductInformation(
+                                email,
+                                userId,
+                                imageUrl,
+                                title,
+                                price,
+                                location,
+                                explain,
+                                sold,
+                                documentId
+                            )
+                            postList.add(post)
+                        }
+                        adapter.notifyDataSetChanged()
                     }
-                    adapter.notifyDataSetChanged()
                 }
                 .addOnFailureListener { exception ->
                     Log.e(ContentValues.TAG, "데이터 가져오기 실패", exception)
                 }
-        }else {
+        } else {
             Log.e(ContentValues.TAG, "Current user is null")
         }
     }
