@@ -1,5 +1,6 @@
 package com.example.boogimarket
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -7,9 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
+private lateinit var mAuth: FirebaseAuth
 
 class UserAdapter(private val context: Context, private val userList: ArrayList<Pair<User, String>>
 ,private val db: FirebaseFirestore ):
@@ -32,24 +38,27 @@ RecyclerView.Adapter<UserAdapter.userViewHolder>(){
     override fun onBindViewHolder(holder: userViewHolder, position: Int) {
 
         val currentUserPair = userList[position]
-        val currentUser = currentUserPair.first // Retrieve the User object from the Pair
-        val documentId = currentUserPair.second // Retrieve the document ID from the Pair
+        val currentUser = currentUserPair.first
+        val documentId = currentUserPair.second
 
-        holder.nameText.text = currentUser.name // Assuming 'name' is a field in the User object
+        holder.nameText.text = currentUser.name
         db.collection("post").document(documentId).get()
             .addOnSuccessListener { result ->
 
                 if (result != null) {
                     val setProduct =
-                        result.getString("title") // Retrieve 'title' field from Firestore document
+
+                        result.getString("title")
                     val setPImage =
-                        result.getString("imgUri") // Retrieve 'imgUri' field from Firestore document
+                        result.getString("imgUri")
 
                     holder.production.text =
-                        setProduct // Set 'title' to TextView 'production' in your ViewHolder
-                    Picasso.get()
-                        .load(setPImage) // Load image using Picasso
-                        .into(holder.image) // Set loaded image to ImageView 'image' in your ViewHolder
+                        setProduct
+                    if(setPImage != null && setPImage != "") {
+                        Picasso.get()
+                            .load(setPImage) // Load image using Picasso
+                            .into(holder.image) // Set loaded image to ImageView 'image' in your ViewHolder
+                    }
                 }
             }
 
@@ -62,7 +71,23 @@ RecyclerView.Adapter<UserAdapter.userViewHolder>(){
             intent.putExtra("documentId", documentId) // Pass the document ID to the next activity
             context.startActivity(intent)
         }
+//        //아이템 뷰를 꾹누르면 나가게 해줘
+//        holder.itemView.setOnLongClickListener {
+//            showLeaveChatConfirmation(currentUser, documentId)
+//            true
+//        }
     }
+
+//    private fun showLeaveChatConfirmation(currentUser: User, documentId: String) {
+//        androidx.appcompat.app.AlertDialog.Builder(context)
+//            .setMessage("${currentUser.name}과의 채팅을 정말 나가시겠습니까?")
+//            .setPositiveButton("나가기") { _, _ ->
+//                leaveChatRoom(documentId)
+//            }
+//            .setNegativeButton("취소",null)
+//            .show()
+//    }
+
 
     // 파라미터로 chatlist_design을 받았다
     class userViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
