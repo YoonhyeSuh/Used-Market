@@ -120,7 +120,7 @@ class HomeFragment : Fragment() {
 
 
             init {
-                // Set click listener for the ViewHolder's view
+                // ViewHolder의 뷰에 대한 클릭 리스너 설정
                 binding.root.setOnClickListener(this)
             }
 
@@ -130,10 +130,10 @@ class HomeFragment : Fragment() {
                 if (position != RecyclerView.NO_POSITION) {
                     val clickedItem = post[position]
 
-                    // Create an Intent to start the DetailsActivity
+                    // DetailsActivity 시작을 위한 인텐트 생성
                     val intent = Intent(view.context, DetailsActivity::class.java)
 
-                    // Pass data to the DetailsActivity using intent extras
+                    // DetailsActivity에 데이터 전달
                     intent.putExtra("item_title", clickedItem.title)
                     intent.putExtra("item_location", clickedItem.location)
                     intent.putExtra("item_price", clickedItem.price)
@@ -142,9 +142,8 @@ class HomeFragment : Fragment() {
                     intent.putExtra("item_userId",clickedItem.userId)
                     intent.putExtra("item_imgUrl",clickedItem.imgUri)
                     intent.putExtra("item_documentId",clickedItem.documentID)
-                    // Add other data you want to pass
 
-                    // Start the DetailsActivity
+                    // DetailsActivity 시작
                     view.context.startActivity(intent)
                 }
             }

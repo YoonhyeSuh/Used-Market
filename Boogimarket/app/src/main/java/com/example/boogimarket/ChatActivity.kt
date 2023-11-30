@@ -17,9 +17,6 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var messageList: ArrayList<Message>
     private lateinit var messageAdapter: MessageAdapter
 
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityChatroomBinding.inflate(layoutInflater)
@@ -56,7 +53,6 @@ class ChatActivity : AppCompatActivity() {
             val message = binding.edtMessage.text.toString()
             val messageObject = Message(message, senderUid, receiverUid)
             messageObject.timestamp = FieldValue.serverTimestamp()
-
 
 
             if (senderUid != null) {

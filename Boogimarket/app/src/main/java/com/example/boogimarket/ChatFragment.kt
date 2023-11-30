@@ -31,8 +31,6 @@ class ChatFragment : Fragment(R.layout.activity_chatlist) {
         binding.userChatlistView.layoutManager = LinearLayoutManager(requireContext())
         binding.userChatlistView.adapter = adapter
 
-
-
         val currentUser = mAuth.currentUser?.uid
 
         if (currentUser != null) {
@@ -57,7 +55,6 @@ class ChatFragment : Fragment(R.layout.activity_chatlist) {
                 }
             }
             .addOnFailureListener {
-
 
             }
     }
