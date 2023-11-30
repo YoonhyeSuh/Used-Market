@@ -54,8 +54,10 @@
             android:id="@+id/textViewTitle"
             android:layout_width="346dp"
             android:layout_height="61dp"
+            android:layout_marginTop="20dp"
             android:layout_weight="1"
             android:text="Title"
+            android:textColor="@color/black"
             android:textSize="25sp"
             android:textStyle="bold" />
 
@@ -93,6 +95,7 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:text="Price"
+            android:textColor="@color/black"
             android:textSize="20sp" />
 
         <!-- Location -->
@@ -113,6 +116,7 @@
             android:layout_height="55dp"
             android:text="Sold Status"
             android:textSize="20sp"
+            android:textColor="@color/navy"
             android:textStyle="italic" />
 
         <TextView
@@ -122,6 +126,7 @@
             android:gravity="top"
             android:inputType="textMultiLine"
             android:text="Explanation"
+            android:textColor="@color/black"
             android:textSize="20sp" />
 
         <!-- Button to proceed to ChatActivity -->
@@ -135,6 +140,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:textStyle="bold"
         android:text="거래 완료"
         android:textSize="20sp" />
 

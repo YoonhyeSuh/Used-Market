@@ -1,18 +1,27 @@
 package com.example.boogimarket
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.boogimarket.databinding.MyselllistDesignBinding
 import com.squareup.picasso.Picasso
 
-class MySellListAdapter(private val posts: ArrayList<Post>) :
+class MySellListAdapter(private val posts: ArrayList<ProductInformation>, private val itemClickListener: OnItemClickListener) :
     RecyclerView.Adapter<MySellListAdapter.ViewHolder>() {
 
-    inner class ViewHolder(private val binding: MyselllistDesignBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    interface OnItemClickListener {
+        fun onItemClick(clickedItem: ProductInformation)
+    }
 
-        fun bind(post: Post) {
+    inner class ViewHolder(private val binding: MyselllistDesignBinding) :
+        RecyclerView.ViewHolder(binding.root), View.OnClickListener {
+
+        init {
+            binding.root.setOnClickListener(this)
+        }
+
+        fun bind(post: ProductInformation) {
             binding.apply {
                 sellListTitle.text = post.title
                 sellListPrice.text = post.price
@@ -20,8 +29,15 @@ class MySellListAdapter(private val posts: ArrayList<Post>) :
                 sellListLocation.text = post.location
 
                 // Picasso를 사용하여 sellListImageView에 이미지 로드
-                Picasso.get().load(post.imageUrl)
+                Picasso.get().load(post.imgUri)
                     .into(sellListImageView)
+            }
+        }
+
+        override fun onClick(view: View) {
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                itemClickListener.onItemClick(posts[position])
             }
         }
     }
@@ -38,3 +54,4 @@ class MySellListAdapter(private val posts: ArrayList<Post>) :
 
     override fun getItemCount(): Int = posts.size
 }
+

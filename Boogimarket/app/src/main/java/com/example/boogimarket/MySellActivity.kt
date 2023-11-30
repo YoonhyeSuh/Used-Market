@@ -1,10 +1,9 @@
 package com.example.boogimarket
 
 import android.content.ContentValues
+import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.boogimarket.databinding.ActivityMyselllistBinding
@@ -14,7 +13,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
-class MySellActivity : AppCompatActivity() {
+class MySellActivity : AppCompatActivity(), MySellListAdapter.OnItemClickListener {
     private lateinit var binding: ActivityMyselllistBinding
     private lateinit var mAuth: FirebaseAuth
     private var currentUser: FirebaseUser? = null
@@ -22,7 +21,7 @@ class MySellActivity : AppCompatActivity() {
     private var db = FirebaseFirestore.getInstance()
 
     // 게시물을 저장할 리스트 선언
-    private var postList = ArrayList<Post>()
+    private var postList = ArrayList<ProductInformation>()
     private lateinit var adapter: MySellListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +34,7 @@ class MySellActivity : AppCompatActivity() {
 
         // RecyclerView 및 어댑터 초기화
         postList = ArrayList()
-        adapter = MySellListAdapter(postList)
+        adapter = MySellListAdapter(postList, this)
         binding.userSellListView.layoutManager = LinearLayoutManager(this)
         binding.userSellListView.adapter = adapter
 
@@ -44,6 +43,24 @@ class MySellActivity : AppCompatActivity() {
         binding.backBtn.setOnClickListener {
             finish()
         }
+    }
+
+    override fun onItemClick(clickedItem: ProductInformation) {
+        // DetailsActivity 시작을 위한 인텐트 생성
+        val intent = Intent(this, DetailsActivity::class.java)
+
+        // DetailsActivity에 데이터 전달
+        intent.putExtra("item_title", clickedItem.title)
+        intent.putExtra("item_location", clickedItem.location)
+        intent.putExtra("item_price", clickedItem.price)
+        intent.putExtra("item_explain", clickedItem.explain)
+        intent.putExtra("item_sold", clickedItem.sold)
+        intent.putExtra("item_userId", clickedItem.userId)
+        intent.putExtra("item_imgUrl", clickedItem.imgUri)
+        intent.putExtra("item_documentId", clickedItem.documentID)
+
+        // DetailsActivity 시작
+        startActivity(intent)
     }
 
     private fun getPostsByUser() {
@@ -61,7 +78,11 @@ class MySellActivity : AppCompatActivity() {
                         val imageUrl = document.getString("imgUri")
                         val sold = document.getBoolean("sold") ?: false
                         val location = document.getString("location")
-                        val post = Post(title, imageUrl, price, sold, location)
+                        val email = document.getString("email")
+                        val userId = document.getString("userId")
+                        val documentId = document.getString("documentID")
+                        val explain = document.getString("explain")
+                        val post = ProductInformation(email, userId, imageUrl, title, price, location, explain, sold, documentId)
                         postList.add(post)
                     }
                     adapter.notifyDataSetChanged()
