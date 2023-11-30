@@ -44,13 +44,6 @@
                 android:inputType="numberDecimal" />
 
             <!-- 설명 입력 -->
-            <EditText
-                android:id="@+id/editTextDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="물품 설명"
-                android:inputType="textMultiLine"
-                android:lines="5" />
 
             <!-- 위치 입력 -->
             <EditText
@@ -59,6 +52,14 @@
                 android:layout_height="wrap_content"
                 android:hint="위치" />
 
+
+            <EditText
+                android:id="@+id/editTextDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="물품 설명"
+                android:inputType="textMultiLine"
+                android:lines="5" />
 
             <Button
                 android:id="@+id/buttonEditPost"
