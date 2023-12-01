@@ -2,6 +2,7 @@ package com.example.boogimarket
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.boogimarket.databinding.ActivityRegisterBinding
@@ -43,6 +44,7 @@ class RegisterActivity : AppCompatActivity() {
             if(email.isNotEmpty() && password.isNotEmpty() && name.isNotEmpty() && birth.isNotEmpty()) {
                 signUp(email, password, name, birth)
             }
+
         }
 
         //액션바 이름 설정
@@ -72,6 +74,8 @@ class RegisterActivity : AppCompatActivity() {
                     //실패시 실행
                     Toast.makeText(this, "회원가입 실패", Toast.LENGTH_SHORT).show()
                 }
+            }.addOnSuccessListener {
+                logIn(email, password)
             }
     }
 
@@ -82,11 +86,28 @@ class RegisterActivity : AppCompatActivity() {
             .add(user)
             .addOnSuccessListener { documentReference ->
                 Toast.makeText(this, "회원가입 성공", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
-                startActivity(intent)
             }
             .addOnFailureListener { e ->
                 Toast.makeText(this, "회원가입 실패", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun logIn(email: String, password: String) {
+        mAuth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    //성공시 실행
+                    val intent: Intent = Intent(this@RegisterActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()
+                    finish()//액티비티 종료
+                } else {
+                    //실패시 실행
+                    Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()
+                    //Logcat에서 실패 원인을 확인할 수 있게 Log.d 생성
+                    Log.d("Login", "Error: ${task.exception}")
+
+                }
             }
     }
 }
